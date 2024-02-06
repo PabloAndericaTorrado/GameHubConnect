@@ -1,4 +1,4 @@
-package com.antpaniagua.basicretrofit.ui.util
+package com.pabloat.apiandroid.ui.util
 
 import android.os.Build
 import android.util.Log
@@ -21,7 +21,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.antpaniagua.basicretrofit.data.local.Weather
+import com.pabloat.apiandroid.data.local.Weather
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

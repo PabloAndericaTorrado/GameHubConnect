@@ -1,14 +1,17 @@
-package com.antpaniagua.boost.navigation
+package com.pabloat.apiandroid.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.antpaniagua.basicretrofit.ui.ListScreen
-import com.antpaniagua.basicretrofit.ui.MainScreen
-import com.antpaniagua.basicretrofit.viewmodel.MainViewModel
+import com.pabloat.apiandroid.ui.ListScreen
+import com.pabloat.apiandroid.ui.MainScreen
+import com.pabloat.apiandroid.viewmodel.MainViewModel
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Navigation(navController: NavHostController, mainViewmodel: MainViewModel) {
     NavHost(
@@ -16,7 +19,7 @@ fun Navigation(navController: NavHostController, mainViewmodel: MainViewModel) {
         startDestination = Destinations.MainScreen.route,
     ) {
         composable(route = Destinations.MainScreen.route) {
-            MainScreen(
+            Destinations.MainScreen(
                 mainViewmodel,
                 onNavToLista = { navController.navigate(Destinations.ListScreen.route) })
         }

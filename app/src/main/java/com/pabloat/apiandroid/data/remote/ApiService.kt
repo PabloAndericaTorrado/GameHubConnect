@@ -1,4 +1,4 @@
-package com.antpaniagua.basicretrofit.data.remote
+package com.pabloat.apiandroid.data.remote
 
 import retrofit2.http.GET
 import retrofit2.http.Query

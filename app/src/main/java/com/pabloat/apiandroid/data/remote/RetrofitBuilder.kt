@@ -1,4 +1,4 @@
-package com.antpaniagua.basicretrofit.data.remote
+package com.pabloat.apiandroid.data.remote
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

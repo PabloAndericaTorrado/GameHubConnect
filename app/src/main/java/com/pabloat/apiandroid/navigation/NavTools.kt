@@ -1,4 +1,4 @@
-package com.antpaniagua.boost.navigation
+package com.pabloat.apiandroid.navigation
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding

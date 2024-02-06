@@ -1,4 +1,4 @@
-package com.antpaniagua.basicretrofit.data.local
+package com.pabloat.apiandroid.data.local
 
 import androidx.room.Dao
 import androidx.room.Delete

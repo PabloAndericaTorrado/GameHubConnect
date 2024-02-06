@@ -1,4 +1,4 @@
-package com.antpaniagua.basicretrofit.data.local
+package com.pabloat.apiandroid.data.local
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

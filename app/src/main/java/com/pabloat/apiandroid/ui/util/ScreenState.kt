@@ -1,6 +1,6 @@
-package com.antpaniagua.basicretrofit.ui.util
+package com.pabloat.apiandroid.ui.util
 
-import com.antpaniagua.basicretrofit.data.local.Weather
+import com.pabloat.apiandroid.data.local.Weather
 import kotlinx.coroutines.flow.Flow
 
 /**

@@ -1,8 +1,8 @@
-package com.antpaniagua.basicretrofit.data.remote
+package com.pabloat.apiandroid.data.remote
 
-import com.antpaniagua.basicretrofit.data.local.Weather
+import com.pabloat.apiandroid.data.local.Weather
 import com.google.gson.annotations.SerializedName
-import com.antpaniagua.basicretrofit.data.local.Weather as LocalWeather
+import com.pabloat.apiandroid.data.local.Weather as LocalWeather
 
 //WeatherDTO es el listado de datos (Data Transference Object) que recibiremos de la API. Sigue su formato
 data class WeatherDTO(

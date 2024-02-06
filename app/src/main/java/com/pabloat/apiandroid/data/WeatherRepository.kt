@@ -1,9 +1,9 @@
-package com.antpaniagua.retrofit.data
+package com.pabloat.apiandroid.data
 
-import com.antpaniagua.basicretrofit.data.local.Weather
-import com.antpaniagua.basicretrofit.data.local.WeatherDatasource
-import com.antpaniagua.basicretrofit.data.remote.RemoteWeatherDataSource
-import com.antpaniagua.basicretrofit.data.remote.toLocalList
+import com.pabloat.apiandroid.data.local.Weather
+import com.pabloat.apiandroid.data.local.WeatherDatasource
+import com.pabloat.apiandroid.data.remote.RemoteWeatherDataSource
+import com.pabloat.apiandroid.data.remote.toLocalList
 import kotlinx.coroutines.flow.Flow
 
 /**

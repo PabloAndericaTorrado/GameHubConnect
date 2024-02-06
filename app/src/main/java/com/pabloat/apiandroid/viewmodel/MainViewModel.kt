@@ -1,11 +1,11 @@
-package com.antpaniagua.basicretrofit.viewmodel
+package com.pabloat.apiandroid.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.antpaniagua.basicretrofit.data.local.Weather
-import com.antpaniagua.basicretrofit.ui.util.ScreenState
-import com.antpaniagua.retrofit.data.WeatherRepository
+import com.pabloat.apiandroid.data.local.Weather
+import com.pabloat.apiandroid.ui.util.ScreenState
+import com.pabloat.apiandroid.data.WeatherRepository
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
