@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class Producto(
     @PrimaryKey(autoGenerate = true) val id: List<Int>?,
     val product_name: List<String>,
-    val iva: List<Int>,
+    val iva: List<String>,
     val price: List<String>,
 ) {
     override fun toString(): String =
