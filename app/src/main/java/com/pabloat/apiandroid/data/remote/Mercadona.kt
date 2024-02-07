@@ -37,3 +37,12 @@ fun CategoriaDTO.toLocalEntity(): Categoria {
 fun ProductoDTO.toLocalEntity(categoriaId: Int): Producto {
     return Producto(id, product_name, precio.iva, precio.unit_price, categoriaId)
 }
+
+fun CategoriaDTO.toLocalList(): List<Categoria> {
+    val productList = products.map { it.toLocalEntity(id) }
+    return listOf(Categoria(id, name, productList))
+}
+
+fun ProductoDTO.toLocalList(categoriaId: Int): List<Producto> {
+    return listOf(Producto(id, product_name, precio.iva, precio.unit_price, categoriaId))
+}
