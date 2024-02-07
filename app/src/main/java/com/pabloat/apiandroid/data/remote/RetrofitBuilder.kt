@@ -1,5 +1,6 @@
 package com.pabloat.apiandroid.data.remote
 
+import com.antpaniagua.basicretrofit.data.remote.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
