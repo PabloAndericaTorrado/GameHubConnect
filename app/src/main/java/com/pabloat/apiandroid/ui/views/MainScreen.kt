@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pabloat.apiandroid.viewmodel.MainViewModel
 
@@ -22,7 +21,7 @@ import com.pabloat.apiandroid.viewmodel.MainViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalFoundationApi
 @Composable
-fun CategoriaScreen(mainViewmodel: MainViewModel) {
+fun MainScreen(mainViewmodel: MainViewModel) {
     Scaffold(
         topBar = { TopAppBar(title = { Text("Videojuegos") }) },
         content = {
@@ -33,7 +32,7 @@ fun CategoriaScreen(mainViewmodel: MainViewModel) {
             ) {
                 LazyColumn {
                     items(10) {
-                        CategoriaCard(nombre = "Videojuegos $it")
+                        VideoJuegoCard(nombre = "Videojuegos $it")
                     }
                 }
             }
@@ -42,7 +41,7 @@ fun CategoriaScreen(mainViewmodel: MainViewModel) {
 }
 
 @Composable
-fun CategoriaCard(nombre: String) {
+fun VideoJuegoCard(nombre: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
