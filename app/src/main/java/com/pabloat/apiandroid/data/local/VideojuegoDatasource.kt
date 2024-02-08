@@ -1,7 +1,10 @@
 package com.pabloat.apiandroid.data.local
 
 import android.content.Context
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.stateIn
 
 class VideojuegoDatasource(applicationContext: Context) {
     private val db: AppDataBase = AppDataBase.getDatabase(applicationContext)
@@ -11,8 +14,9 @@ class VideojuegoDatasource(applicationContext: Context) {
      * PRODUCTO
      */
 
+    @OptIn(DelicateCoroutinesApi::class)
     suspend fun getAllVideojuego(): Flow<List<Videojuego>> {
-        return videojuegoDao.getAll()
+        return videojuegoDao.getAll().stateIn(GlobalScope)
     }
     suspend fun insertVideojuego(videojuego: Videojuego) {
         videojuegoDao.insert(videojuego)

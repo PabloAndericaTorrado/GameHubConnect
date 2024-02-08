@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 // Esta es la única línea que necesitamos cambiar generalmente, con la url de la API
-private const val API_BASE_URL = "https://www.freetogame.com/api/games/"
+private const val API_BASE_URL = "https://www.freetogame.com/api/"
 
 object RetrofitBuilder {
     private fun getRetrofit(): Retrofit {

@@ -12,4 +12,8 @@ data class Videojuego(
     val genre: String,
     val platform: String,
     val date: String,
-)
+){
+    override fun toString(): String {
+        return super.toString()
+    }
+}

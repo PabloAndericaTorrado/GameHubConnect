@@ -2,10 +2,15 @@ package com.pabloat.apiandroid.data.remote
 
 import com.google.gson.annotations.SerializedName
 import com.pabloat.apiandroid.data.local.Videojuego
-import com.pabloat.apiandroid.data.local.Videojuego as LocalVideojuego
+
 
 
 data class VideoJuegosDTO(
+    @SerializedName("games")
+    val data: List<VideoJuegoDTO>
+)
+
+data class VideoJuegoDTO(
     @SerializedName("id")
     val id: Int,
     @SerializedName("title")
@@ -21,34 +26,36 @@ data class VideoJuegosDTO(
     @SerializedName("release_date")
     val date: String
 ) {
-
+    fun toVideojuego(): Videojuego {
+        return Videojuego(
+            id = id,
+            title = title,
+            developer = developer,
+            shortDescription = description,
+            genre = genre,
+            platform = platform,
+            date = date
+        )
+    }
 }
 
-fun VideoJuegosDTO.toLocalList(): List<LocalVideojuego> {
-    val tempList = mutableListOf<LocalVideojuego>()
-    val nuevo = LocalVideojuego(
-        id = id,
-        title = title,
-        developer = developer,
-        shortDescription = description,
-        genre = genre,
-        platform = platform,
-        date = date
-    )
-    tempList.add(nuevo)
+fun VideoJuegosDTO.toLocalList(): List<Videojuego> {
+    val tempList = mutableListOf<Videojuego>()
+    for (i in 0 .. data.size - 1){
+        val nuevo = Videojuego(
+           id = data.get(i).id,
+            title = data.get(i).title,
+            developer = data.get(i).developer,
+            shortDescription = data.get(i).description,
+            genre = data.get(i).genre,
+            platform = data.get(i).platform,
+            date = data.get(i).date
+
+        )
+        tempList.add(nuevo)
+    }
     return tempList
 }
 
-fun VideoJuegosDTO.toLocalEntity(): LocalVideojuego {
-    return LocalVideojuego(
-        id = null,
-        title = title,
-        developer = developer,
-        shortDescription = description,
-        genre = genre,
-        platform = platform,
-        date = date
-    )
-}
 
 
