@@ -44,9 +44,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainApp() {
     val navHostController = rememberNavController()
-    val remoteDatasource = RemoteMercadonaDataSource(RetrofitBuilder.apiService)
+    val remoteDatasource = RemoteVideojuegoDataSource(RetrofitBuilder.apiService)
     val localDatasource = VideojuegoDatasource(LocalContext.current)
-    val repository = MercadonaRepository(localDatasource, remoteDatasource)
+    val repository = VideojuegoRepository(localDatasource, remoteDatasource)
     val mainViewModel = MainViewModel(repository)
 
     Scaffold(topBar = { MainTopBar() }) { it ->
@@ -60,23 +60,3 @@ fun MainApp() {
     }
 }
 
-@Composable
-fun MainTopBar() {
-    TODO("Not yet implemented")
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ApiAndroidTheme {
-        Greeting("Android")
-    }
-}
