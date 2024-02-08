@@ -1,4 +1,4 @@
-package com.antpaniagua.basicretrofit.data.remote
+package com.pabloat.apiandroid.data.remote
 
 import com.pabloat.apiandroid.data.local.Categoria
 import com.pabloat.apiandroid.data.local.Producto
