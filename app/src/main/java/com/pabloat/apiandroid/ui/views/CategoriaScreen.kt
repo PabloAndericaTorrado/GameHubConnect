@@ -16,14 +16,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.pabloat.apiandroid.viewmodel.MainViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalFoundationApi
 @Composable
-fun CategoriaScreen() {
+fun CategoriaScreen(mainViewmodel: MainViewModel) {
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Categorías") }) },
+        topBar = { TopAppBar(title = { Text("Videojuegos") }) },
         content = {
             Column(
                 modifier = Modifier
@@ -32,7 +33,7 @@ fun CategoriaScreen() {
             ) {
                 LazyColumn {
                     items(10) {
-                        CategoriaCard(nombre = "Categoría $it")
+                        CategoriaCard(nombre = "Videojuegos $it")
                     }
                 }
             }
@@ -58,7 +59,7 @@ fun CategoriaCard(nombre: String) {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Descripción de la categoría $nombre",
+                text = "Descripción: $nombre",
                 color = Color.Gray,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
@@ -67,9 +68,4 @@ fun CategoriaCard(nombre: String) {
     }
 }
 
-@ExperimentalFoundationApi
-@Preview
-@Composable
-fun PreviewCategoriaScreen() {
-    CategoriaScreen()
-}
+
