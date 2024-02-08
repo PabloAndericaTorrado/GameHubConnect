@@ -6,11 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [Producto::class, Categoria::class], version = 1)
-@TypeConverters(ProductoListConverter::class)
+@Database(entities = [Videojuego::class], version = 1)
 abstract class AppDataBase : RoomDatabase() {
-    abstract fun productoDao(): LocalProductoDao
-    abstract fun categoriaDao(): LocalCategoriaDao
+    abstract fun videojuegoDao(): LocalVideojuegoDao
 
     companion object {
         @Volatile
@@ -19,7 +17,7 @@ abstract class AppDataBase : RoomDatabase() {
         fun getDatabase(context: Context): AppDataBase {
             return Instance ?: synchronized(this) {
                 Room
-                    .databaseBuilder(context, AppDataBase::class.java, "mercadona.sql")
+                    .databaseBuilder(context, AppDataBase::class.java, "videojuego.sql")
                     .build()
                     .also { Instance = it }
             }

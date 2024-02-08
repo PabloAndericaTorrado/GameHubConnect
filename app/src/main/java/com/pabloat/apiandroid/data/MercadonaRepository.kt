@@ -2,13 +2,13 @@ package com.pabloat.apiandroid.data
 
 
 import com.pabloat.apiandroid.data.local.Categoria
-import com.pabloat.apiandroid.data.local.MercadonaDatasource
+import com.pabloat.apiandroid.data.local.VideojuegoDatasource
 import com.pabloat.apiandroid.data.local.Producto
 import com.pabloat.apiandroid.data.remote.RemoteMercadonaDataSource
 import kotlinx.coroutines.flow.Flow
 
 class MercadonaRepository(
-    private val localds: MercadonaDatasource,
+    private val localds: VideojuegoDatasource,
     private val remoteds: RemoteMercadonaDataSource
 ) {
     suspend fun getRemoteCategoria(
@@ -35,11 +35,11 @@ class MercadonaRepository(
     }
 
     suspend fun getLocalProducto(): Flow<List<Producto>> {
-        return localds.getAllProductos()
+        return localds.getAllVideojuego()
     }
 
     suspend fun insertLocalProducto(producto: Producto){
-        localds.insertProducto(producto)
+        localds.insertVideojuego(producto)
     }
 
 }
