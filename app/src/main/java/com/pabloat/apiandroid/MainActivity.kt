@@ -10,11 +10,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.pabloat.apiandroid.data.VideojuegoRepository
@@ -23,7 +21,6 @@ import com.pabloat.apiandroid.data.remote.RemoteVideojuegoDataSource
 import com.pabloat.apiandroid.data.remote.RetrofitBuilder
 import com.pabloat.apiandroid.navigation.MainNaviation
 import com.pabloat.apiandroid.navigation.MainTopBar
-import com.pabloat.apiandroid.ui.theme.ApiAndroidTheme
 import com.pabloat.apiandroid.viewmodel.MainViewModel
 
 class MainActivity : ComponentActivity() {
