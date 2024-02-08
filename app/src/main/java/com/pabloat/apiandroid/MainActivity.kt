@@ -17,11 +17,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.pabloat.apiandroid.data.MercadonaRepository
+import com.pabloat.apiandroid.data.VideojuegoRepository
 import com.pabloat.apiandroid.data.local.VideojuegoDatasource
-import com.pabloat.apiandroid.data.remote.RemoteMercadonaDataSource
+import com.pabloat.apiandroid.data.remote.RemoteVideojuegoDataSource
 import com.pabloat.apiandroid.data.remote.RetrofitBuilder
 import com.pabloat.apiandroid.navigation.MainNaviation
+import com.pabloat.apiandroid.navigation.MainTopBar
 import com.pabloat.apiandroid.ui.theme.ApiAndroidTheme
 import com.pabloat.apiandroid.viewmodel.MainViewModel
 
