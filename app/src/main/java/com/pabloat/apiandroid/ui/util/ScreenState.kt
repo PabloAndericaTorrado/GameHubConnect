@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 sealed class ScreenState {
     object Loading : ScreenState()
     data class Error(val message: String) : ScreenState()
-    data class Success(val weathers: Flow<List<Videojuego>>) : ScreenState()
+    data class Success(val videojuego: Flow<List<Videojuego>>) : ScreenState()
 }
