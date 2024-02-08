@@ -24,8 +24,8 @@ class MercadonaDatasource(applicationContext: Context) {
     suspend fun updateCategoria(categoria: Categoria) {
         categoriaDao.update(categoria)
     }
-    suspend fun deleteCategoria(categoriaId: Int) {
-        categoriaDao.delete(categoriaId)
+    suspend fun deleteCategoria(categoria: Categoria) {
+        categoriaDao.delete(categoria)
     }
 
     /**
@@ -41,7 +41,7 @@ class MercadonaDatasource(applicationContext: Context) {
     suspend fun updateProducto(producto: Producto) {
         productoDao.update(producto)
     }
-    suspend fun deleteProducto(productoId: Int) {
-        productoDao.delete(productoId)
+    suspend fun deleteProducto(producto: Producto) {
+        productoDao.delete(producto)
     }
 }
