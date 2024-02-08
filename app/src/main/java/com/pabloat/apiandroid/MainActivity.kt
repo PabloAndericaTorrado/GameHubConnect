@@ -10,6 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
 import com.pabloat.apiandroid.data.local.Categoria
 import com.pabloat.apiandroid.data.local.MercadonaDatasource
+import com.pabloat.apiandroid.data.local.Producto
 import com.pabloat.apiandroid.ui.theme.ApiAndroidTheme
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
@@ -20,22 +21,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        mercadonaDatasource = MercadonaDatasource(applicationContext)
-        val nuevaCategoria = Categoria(null, "Frutas", listOf())
-        lifecycleScope.launch {
-            mercadonaDatasource.insertCategoria(nuevaCategoria)
-        }
-
-        lifecycleScope.launch {
-            val categorias = mercadonaDatasource.getAllCategorias().firstOrNull()
-            categorias?.forEach { categoria ->
-                Log.d("MainActivity", "Categoría: ${categoria.name}")
-                categoria.products.forEach { producto ->
-                    Log.d("MainActivity", "Producto: ${producto.product_name}")
-                }
-            }
-        }
     }
 }
 
