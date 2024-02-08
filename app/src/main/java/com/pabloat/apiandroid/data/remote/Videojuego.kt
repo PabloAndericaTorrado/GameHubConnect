@@ -22,22 +22,21 @@ data class VideoJuegosDTO(
     val date: String
 )
 
-fun List<VideoJuegosDTO>.toLocalList(): List<Videojuego> {
-    val tempList = mutableListOf<Videojuego>()
-    for (videojuegoDTO in this) {
-        val nuevo = LocalVideojuego(
-            id = null,
-            title = videojuegoDTO.title,
-            developer = videojuegoDTO.developer,
-            shortDescription = videojuegoDTO.description,
-            genre = videojuegoDTO.genre,
-            platform = videojuegoDTO.platform,
-            date = videojuegoDTO.date
-        )
-        tempList.add(nuevo)
-    }
+fun VideoJuegosDTO.toLocalList(): List<LocalVideojuego> {
+    val tempList = mutableListOf<LocalVideojuego>()
+    val nuevo = LocalVideojuego(
+        id = id,
+        title = title,
+        developer = developer,
+        shortDescription = description,
+        genre = genre,
+        platform = platform,
+        date = date
+    )
+    tempList.add(nuevo)
     return tempList
 }
+
 fun VideoJuegosDTO.toLocalEntity(): LocalVideojuego {
     return LocalVideojuego(
         id = null,
