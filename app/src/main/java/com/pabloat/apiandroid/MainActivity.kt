@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
             mercadonaDatasource.insertCategoria(nuevaCategoria)
         }
 
-        // Ejemplo de obtener todas las categorías
         lifecycleScope.launch {
             val categorias = mercadonaDatasource.getAllCategorias().firstOrNull()
             categorias?.forEach { categoria ->
