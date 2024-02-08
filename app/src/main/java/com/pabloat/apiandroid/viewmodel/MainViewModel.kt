@@ -8,6 +8,7 @@ import com.pabloat.apiandroid.data.VideojuegoRepository
 import com.pabloat.apiandroid.data.local.Videojuego
 import com.pabloat.apiandroid.ui.util.ScreenState
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,8 +27,6 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
             ScreenState.Error("Ha ocurrido un error, revise su conexión a internet o inténtelo de nuevo más tarde")
     }
 
-
-
     fun getRemoteVideojuego(
         id: Int,
         title: String,
@@ -38,10 +37,10 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
         date: String,
     ) {
         viewModelScope.launch(handler) {
-            //delay(5000) //Quitar. Lo usamos para simular una pausa
+            delay(5000)
             Log.d("VM", "Lanzamos petición a la API")
             val remoteVideojuegos: List<Videojuego> =
-                repository.getRemoteVideojuegos(id,title,developer,shortDescription,genre,platform,date)
+                repository.getRemoteVideojuego(id,title,developer,shortDescription,genre,platform,date)
             //Recogemos el resultado
             _videojuegos.value = remoteVideojuegos
             //Actualizamos el estado
