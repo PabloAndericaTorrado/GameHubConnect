@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pabloat.apiandroid.data.MercadonaRepository
-import com.pabloat.apiandroid.data.local.Categoria
-import com.pabloat.apiandroid.data.local.Producto
+
+import com.pabloat.apiandroid.data.local.Videojuego
 import com.pabloat.apiandroid.ui.util.ScreenState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,8 +15,8 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: MercadonaRepository) : ViewModel() {
 
-    private val _categorias: MutableStateFlow<List<Categoria>> = MutableStateFlow(listOf())
-    var categorias = _categorias.asStateFlow()
+    private val _videojuegos: MutableStateFlow<List<Videojuego>> = MutableStateFlow(listOf())
+    var videojuegos = _videojuegos.asStateFlow()
 
     private val _uiState: MutableStateFlow<ScreenState> = MutableStateFlow(ScreenState.Loading)
     val uiState: StateFlow<ScreenState> = _uiState.asStateFlow()
@@ -29,18 +29,18 @@ class MainViewModel(private val repository: MercadonaRepository) : ViewModel() {
 
 
     fun getRemoteCategoria(
-       id:Int, name:String, productos: List<Producto>
+       id:Int, name:String, productos: List<Videojuego>
     ) {
         viewModelScope.launch(handler) {
             //delay(5000) //Quitar. Lo usamos para simular una pausa
             Log.d("VM", "Lanzamos petición a la API")
-            val remoteCategorias: List<Categoria> =
+            val remoteVideojuegos: List<Videojuego> =
                 repository.getRemoteCategoria(id,name,productos)
             //Recogemos el resultado
-            _categorias.value = remoteCategorias
+            _videojuegos.value = remoteVideojuegos
             //Actualizamos el estado
-            _uiState.value = ScreenState.Success(categorias)
-            Log.d("VM", "Info obtenida: " + remoteCategorias.toString())
+            _uiState.value = ScreenState.Success(videojuegos)
+            Log.d("VM", "Info obtenida: " + remoteVideojuegos.toString())
         }
         Log.d("VM", "Petición lanzada. Los datos irán llegando...")
     }
