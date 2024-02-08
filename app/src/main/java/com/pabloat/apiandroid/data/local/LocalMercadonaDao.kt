@@ -20,7 +20,7 @@ interface LocalProductoDao {
     suspend fun update(producto: Producto)
 
     @Delete
-    suspend fun delete(producto: Producto)
+    suspend fun delete(categoriaId: Int)
 }
 
 @Dao
@@ -35,5 +35,5 @@ interface LocalCategoriaDao {
     suspend fun update(categoria: Categoria)
 
     @Delete
-    suspend fun delete(categoria: Categoria)
+    suspend fun delete(productoId: Int)
 }
