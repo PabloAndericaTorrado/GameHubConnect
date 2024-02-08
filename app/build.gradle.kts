@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.antpaniagua.retrofit"
+    namespace = "com.pabloat.apiandroid"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.antpaniagua.retrofit"
+        applicationId = "com.pabloat.apiandroid"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

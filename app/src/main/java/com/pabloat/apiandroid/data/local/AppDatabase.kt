@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 @Database(entities = [Producto::class, Categoria::class], version = 1)
+@TypeConverters(ProductoListConverter::class)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun productoDao(): LocalProductoDao
     abstract fun categoriaDao(): LocalCategoriaDao

@@ -1,6 +1,7 @@
 package com.pabloat.apiandroid.data.local
 
 import android.content.Context
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.stateIn
@@ -13,6 +14,7 @@ class MercadonaDatasource(applicationContext: Context) {
     /**
      * CATEGORÍA
      */
+    @OptIn(DelicateCoroutinesApi::class)
     suspend fun getAllCategorias(): Flow<List<Categoria>> {
         return categoriaDao.getAll().stateIn(GlobalScope)
     }
