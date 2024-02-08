@@ -1,13 +1,16 @@
 package com.pabloat.apiandroid.data.remote
 
-import com.pabloat.apiandroid.data.local.Categoria
-import com.pabloat.apiandroid.data.local.Producto
 import retrofit2.http.GET
 
 interface ApiService {
-    @GET("categories")
-    suspend fun getCategorias(id: Int, name: String, products: List<Producto>): List<Categoria>
-
-    @GET("products")
-    suspend fun getProductos(): List<Producto>
+    @GET("games")
+    suspend fun getVideojuegos(
+        id: Int,
+        title: String,
+        developer: String,
+        shortDescription: String,
+        genre: String,
+        platform: String,
+        date: String,
+    ): VideoJuegosDTO
 }

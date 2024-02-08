@@ -20,7 +20,9 @@ data class VideoJuegosDTO(
     val developer: String,
     @SerializedName("release_date")
     val date: String
-)
+) {
+
+}
 
 fun VideoJuegosDTO.toLocalList(): List<LocalVideojuego> {
     val tempList = mutableListOf<LocalVideojuego>()
