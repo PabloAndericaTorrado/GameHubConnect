@@ -28,19 +28,12 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
     }
 
     fun getRemoteVideojuego(
-        id: Int,
-        title: String,
-        developer: String,
-        shortDescription: String,
-        genre: String,
-        platform: String,
-        date: String,
     ) {
         viewModelScope.launch(handler) {
             delay(5000)
             Log.d("VM", "Lanzamos petición a la API")
             val remoteVideojuegos: List<Videojuego> =
-                repository.getRemoteVideojuego(id,title,developer,shortDescription,genre,platform,date)
+                repository.getRemoteVideojuego()
             //Recogemos el resultado
             _videojuegos.value = remoteVideojuegos
             //Actualizamos el estado

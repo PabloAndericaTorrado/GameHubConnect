@@ -1,9 +1,11 @@
 package com.pabloat.apiandroid.ui.views
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -11,10 +13,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.pabloat.apiandroid.ui.util.ScreenState
+import com.pabloat.apiandroid.ui.util.VideojuegosItem
 import com.pabloat.apiandroid.viewmodel.MainViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -22,18 +31,21 @@ import com.pabloat.apiandroid.viewmodel.MainViewModel
 @ExperimentalFoundationApi
 @Composable
 fun MainScreen(mainViewmodel: MainViewModel) {
+    val screenState by mainViewmodel.videojuegos.collectAsState()
+
+
+
     Scaffold(
         topBar = { TopAppBar(title = { Text("Videojuegos") }) },
         content = {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
+            Box(
+                contentAlignment = Alignment.Center, modifier = Modifier
+                    .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                LazyColumn {
-                    items(10) {
-                        VideoJuegoCard(nombre = "Videojuegos $it")
-                    }
+                Column() {
+                    val videojuegosList by mainViewmodel.videojuegos.collectAsStateWithLifecycle()
+                    Log.d("VM", videojuegosList.toString())
                 }
             }
         }

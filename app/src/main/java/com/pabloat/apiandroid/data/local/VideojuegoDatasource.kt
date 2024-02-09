@@ -18,8 +18,8 @@ class VideojuegoDatasource(applicationContext: Context) {
     suspend fun getAllVideojuego(): Flow<List<Videojuego>> {
         return videojuegoDao.getAll().stateIn(GlobalScope)
     }
-    suspend fun insertVideojuego(videojuego: Videojuego) {
-        videojuegoDao.insert(videojuego)
+    suspend fun insertVideojuego(videojuegos: List<Videojuego>) {
+        videojuegoDao.insert(videojuegos)
     }
     suspend fun updateVideojuego(videojuego: Videojuego) {
         videojuegoDao.update(videojuego)

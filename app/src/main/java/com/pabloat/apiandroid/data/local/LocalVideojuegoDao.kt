@@ -14,7 +14,7 @@ interface LocalVideojuegoDao {
     fun getAll(): Flow<List<Videojuego>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(videojuego: Videojuego)
+    suspend fun insert(videojuegos: List<Videojuego>)
 
     @Update
     suspend fun update(videojuego: Videojuego)

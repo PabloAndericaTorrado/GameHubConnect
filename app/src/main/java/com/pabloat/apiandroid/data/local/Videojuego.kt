@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class Videojuego(
     @PrimaryKey(autoGenerate = true) val id: Int?,
     val title: String,
+    val thumbnail: String,
     val developer: String,
     val shortDescription: String,
     val genre: String,

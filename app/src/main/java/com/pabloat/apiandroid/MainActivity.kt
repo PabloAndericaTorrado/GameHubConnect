@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.pabloat.apiandroid.data.VideojuegoRepository
+import com.pabloat.apiandroid.data.local.AppDataBase
 import com.pabloat.apiandroid.data.local.VideojuegoDatasource
 import com.pabloat.apiandroid.data.remote.RemoteVideojuegoDataSource
 import com.pabloat.apiandroid.data.remote.RetrofitBuilder
@@ -46,6 +47,8 @@ fun MainApp() {
     val localDatasource = VideojuegoDatasource(LocalContext.current)
     val repository = VideojuegoRepository(localDatasource, remoteDatasource)
     val mainViewModel = MainViewModel(repository)
+    AppDataBase.getDatabase(LocalContext.current)
+    mainViewModel.getRemoteVideojuego()
 
     Scaffold(topBar = { MainTopBar() }) { it ->
         Column(

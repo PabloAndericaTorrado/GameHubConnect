@@ -13,10 +13,12 @@ data class VideoJuegosDTO(
 data class VideoJuegoDTO(
     @SerializedName("id")
     val id: Int,
+    @SerializedName("thumbnail")
+    val thumbnail: String,
     @SerializedName("title")
     val title: String,
     @SerializedName("short_description")
-    val description: String,
+    val short_description   : String,
     @SerializedName("genre")
     val genre: String,
     @SerializedName("platform")
@@ -30,8 +32,9 @@ data class VideoJuegoDTO(
         return Videojuego(
             id = id,
             title = title,
+            thumbnail = thumbnail,
             developer = developer,
-            shortDescription = description,
+            shortDescription = short_description,
             genre = genre,
             platform = platform,
             date = date
@@ -41,12 +44,13 @@ data class VideoJuegoDTO(
 
 fun VideoJuegosDTO.toLocalList(): List<Videojuego> {
     val tempList = mutableListOf<Videojuego>()
-    for (i in 0 .. data.size - 1){
+    for (i in 0 .. 5 - 1){
         val nuevo = Videojuego(
            id = data.get(i).id,
             title = data.get(i).title,
+            thumbnail = data.get(i).thumbnail,
             developer = data.get(i).developer,
-            shortDescription = data.get(i).description,
+            shortDescription = data.get(i).short_description,
             genre = data.get(i).genre,
             platform = data.get(i).platform,
             date = data.get(i).date
