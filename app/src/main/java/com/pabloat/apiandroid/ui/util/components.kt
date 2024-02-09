@@ -35,14 +35,14 @@ fun VideojuegosItem(videojuego: Videojuego) {
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "Title: ${videojuego.title}",
+                text = videojuego.title,
                 fontWeight = FontWeight.Bold
             )
-            Text(text = "Developer: ${videojuego.developer}")
-            Text(text = "Short Description: ${videojuego.shortDescription}")
-            Text(text = "Genre: ${videojuego.genre}")
-            Text(text = "Platform: ${videojuego.platform}")
-            Text(text = "Fecha: ${videojuego.date}")
+            Text(text = "Desarrollador: ${videojuego.developer}")
+            Text(text = "Descripcion:\n${videojuego.shortDescription}")
+            Text(text = "Género: ${videojuego.genre}")
+            Text(text = "Plataforma: ${videojuego.platform}")
+            Text(text = "Fecha Salida: ${videojuego.date}")
 
         }
     }

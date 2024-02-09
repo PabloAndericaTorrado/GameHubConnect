@@ -30,27 +30,29 @@ import com.pabloat.apiandroid.viewmodel.MainViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalFoundationApi
 @Composable
-fun MainScreen(mainViewmodel: MainViewModel) {
-    val screenState by mainViewmodel.videojuegos.collectAsState()
-
-
+fun MainScreen(mainViewModel: MainViewModel) {
+    val screenState by mainViewModel.videojuegos.collectAsState()
 
     Scaffold(
         topBar = { TopAppBar(title = { Text("Videojuegos") }) },
         content = {
             Box(
-                contentAlignment = Alignment.Center, modifier = Modifier
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                Column() {
-                    val videojuegosList by mainViewmodel.videojuegos.collectAsStateWithLifecycle()
-                    Log.d("VM", videojuegosList.toString())
+                val videojuegosList by mainViewModel.videojuegos.collectAsState()
+                LazyColumn {
+                    items(videojuegosList) { videojuego ->
+                        VideojuegosItem(videojuego)
+                    }
                 }
             }
         }
     )
 }
+
 
 @Composable
 fun VideoJuegoCard(nombre: String) {
