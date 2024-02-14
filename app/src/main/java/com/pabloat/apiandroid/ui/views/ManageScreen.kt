@@ -36,21 +36,21 @@ fun ManageScreen(navHostController: NavHostController, mainViewModel: MainViewMo
             onClick = { /* TODO: Implement edit action */ },
             modifier = Modifier.padding(8.dp)
         ) {
-            Text("Editar")
+            Text("Editar Juego")
         }
 
         Button(
             onClick = { /* TODO: Implement add action */ },
             modifier = Modifier.padding(8.dp)
         ) {
-            Text("Añadir")
+            Text("Añadir Juego")
         }
 
         Button(
             onClick = { /* TODO: Implement delete action */ },
             modifier = Modifier.padding(8.dp)
         ) {
-            Text("Borrar")
+            Text("Borrar Juego")
         }
     }
 }

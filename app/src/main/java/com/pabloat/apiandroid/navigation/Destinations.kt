@@ -12,5 +12,8 @@ sealed class Destinations(val route: String) {
         }
     }
 
+    object AddScreen : Destinations(route = "AddScreen")
+
+
     object  InitScreen : Destinations(route = "InitScreen")
 }
