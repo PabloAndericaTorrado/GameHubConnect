@@ -33,7 +33,7 @@ fun DeleteGameScreen(onNavController: NavHostController, mainViewModel: MainView
         OutlinedTextField(
             value = texto.value,
             onValueChange = { texto.value = it },
-            label = { Text("Imagen") },
+            label = { Text("Título") },
             modifier = Modifier.fillMaxWidth()
         )
 

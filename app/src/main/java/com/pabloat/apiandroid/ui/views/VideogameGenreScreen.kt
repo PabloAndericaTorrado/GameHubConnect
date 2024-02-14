@@ -23,21 +23,16 @@ import com.pabloat.apiandroid.viewmodel.MainViewModel
 fun VideogameGenreScreen(mainViewModel: MainViewModel, genre: String) {
     val videojuegosList = mainViewModel.videojuegos.value.filter { it.genre == genre }
 
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("Videojuegos - $genre") }) },
-        content = {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                LazyColumn {
-                    items(videojuegosList) { videojuego ->
-                        VideojuegosItem(videojuego)
-                    }
-                }
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        LazyColumn {
+            items(videojuegosList) { videojuego ->
+                VideojuegosItem(videojuego)
             }
         }
-    )
+    }
 }
