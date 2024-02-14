@@ -11,21 +11,20 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.pabloat.apiandroid.ui.util.GenreItem
+import com.pabloat.apiandroid.ui.util.VideojuegosItem
 import com.pabloat.apiandroid.viewmodel.MainViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GenreScreen(mainViewModel: MainViewModel, onGenreSelected: (String) -> Unit) {
-    val genres by mainViewModel.generos.collectAsState()
+fun VideogameGenreScreen(mainViewModel: MainViewModel, genre: String) {
+    val videojuegosList = mainViewModel.videojuegos.value.filter { it.genre == genre }
+
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Géneros") }) },
+        topBar = { TopAppBar(title = { Text("Videojuegos - $genre") }) },
         content = {
             Box(
                 contentAlignment = Alignment.Center,
@@ -34,10 +33,8 @@ fun GenreScreen(mainViewModel: MainViewModel, onGenreSelected: (String) -> Unit)
                     .padding(16.dp)
             ) {
                 LazyColumn {
-                    items(genres) { genre ->
-                        GenreItem(genre = genre) {
-                            onGenreSelected(genre)
-                        }
+                    items(videojuegosList) { videojuego ->
+                        VideojuegosItem(videojuego)
                     }
                 }
             }

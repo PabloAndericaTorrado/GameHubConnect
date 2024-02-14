@@ -10,14 +10,21 @@ import com.pabloat.apiandroid.ui.util.ScreenState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() {
 
     private val _videojuegos: MutableStateFlow<List<Videojuego>> = MutableStateFlow(listOf())
     var videojuegos = _videojuegos.asStateFlow()
+
+    val generos: StateFlow<List<String>> = videojuegos.map { videojuegos ->
+        videojuegos.map { it.genre }.distinct()
+    }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     private val _uiState: MutableStateFlow<ScreenState> = MutableStateFlow(ScreenState.Loading)
     val uiState: StateFlow<ScreenState> = _uiState.asStateFlow()

@@ -6,9 +6,9 @@ sealed class Destinations(val route: String) {
 
     object GenreScreen : Destinations(route = "GenreScreen")
 
-    object VideoGamesGenre : Destinations(route = "VideogamesGenre/{genre}") {
+    object VideoGamesGenre : Destinations(route = "VideogamesGenreScreen/{genre}") {
         fun createRoute(genre: String): String {
-            return "VideogamesGenre/$genre"
+            return "VideogamesGenreScreen/$genre"
         }
     }
 

@@ -6,15 +6,17 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.pabloat.apiandroid.ui.views.InitScreen
+import com.pabloat.apiandroid.ui.views.GenreScreen
 import com.pabloat.apiandroid.ui.views.MainScreen
 import com.pabloat.apiandroid.ui.views.ManageScreen
-import com.pabloat.apiandroid.ui.views.VideogamesGenre
+import com.pabloat.apiandroid.ui.views.VideogameGenreScreen
 import com.pabloat.apiandroid.viewmodel.MainViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewModel) {
-    NavHost(navController = onNavController, startDestination = Destinations.InitScreen.route) {
+fun MainNaviation(onNavController: NavHostController, mainViewmodel: MainViewModel) {
+    NavHost(navController = onNavController, startDestination = Destinations.GenreScreen.route) {
+
         composable(Destinations.MainScreen.route) {
             MainScreen(mainViewmodel)
         }
@@ -22,12 +24,17 @@ fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewMode
             ManageScreen(navHostController = onNavController, mainViewModel = mainViewmodel)
         }
         composable(Destinations.GenreScreen.route) {
-
+            GenreScreen(
+                mainViewModel = mainViewmodel,
+                onGenreSelected = { genre ->
+                    onNavController.navigate(Destinations.VideoGamesGenre.createRoute(genre))
+                }
+            )
         }
         composable(Destinations.VideoGamesGenre.route) { backStackEntry ->
             val genre = backStackEntry.arguments?.getString("genre")
             if (genre != null) {
-                VideogamesGenre(onNavController, genre)
+                VideogameGenreScreen(mainViewModel = mainViewmodel, genre = genre)
             }
         }
         composable(Destinations.InitScreen.route) {
