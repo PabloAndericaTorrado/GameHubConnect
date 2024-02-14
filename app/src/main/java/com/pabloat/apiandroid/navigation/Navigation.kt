@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.pabloat.apiandroid.ui.views.MainScreen
+import com.pabloat.apiandroid.ui.views.ManageScreen
 import com.pabloat.apiandroid.ui.views.VideogamesGenre
 import com.pabloat.apiandroid.viewmodel.MainViewModel
 
@@ -17,7 +18,7 @@ fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewMode
             MainScreen(mainViewmodel)
         }
         composable(Destinations.ManageScreen.route) {
-            ManageScreen(onNavController, mainViewmodel)
+            ManageScreen(navHostController = onNavController, mainViewModel = mainViewmodel)
         }
         composable(Destinations.GenreScreen.route) {
 
