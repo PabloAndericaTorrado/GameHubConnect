@@ -21,4 +21,11 @@ interface LocalVideojuegoDao {
 
     @Delete
     suspend fun delete(videojuego: Videojuego)
+
+    @Query("SELECT DISTINCT genre FROM Videojuego")
+    fun getAllGenres(): Flow<List<String>>
+
+    @Query("SELECT * FROM Videojuego WHERE genre = :genre")
+    fun getVideojuegosByGenre(genre: String): Flow<List<Videojuego>>
+
 }
