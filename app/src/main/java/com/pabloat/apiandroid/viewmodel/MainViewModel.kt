@@ -65,4 +65,15 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
             repository.searchVideojuegoByTitle(gameTitle)
         }
     }
+
+    suspend fun deleteGame(id: Int): Boolean {
+        return withContext(Dispatchers.IO) {
+            try {
+                repository.deleteVideojuego(id)
+                true
+            } catch (e: Exception) {
+                false
+            }
+        }
+    }
 }

@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.pabloat.apiandroid.data.local.Videojuego
+import com.pabloat.apiandroid.ui.util.VideojuegosDeleteItem
 import com.pabloat.apiandroid.ui.util.VideojuegosItem
 import com.pabloat.apiandroid.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
@@ -47,7 +48,11 @@ fun DeleteGameScreen(onNavController: NavHostController, mainViewModel: MainView
         }
 
         videojuegoEncontrado.value?.let { videojuego ->
-            VideojuegosItem(videojuego = videojuego)
+            VideojuegosDeleteItem(videojuego = videojuego, onDeleteClick = {
+                coroutineScope.launch {
+                    videojuego.id?.let { mainViewModel.deleteGame(it) }
+                }
+            })
         }
     }
 }

@@ -33,4 +33,7 @@ interface LocalVideojuegoDao {
 
     @Query("SELECT * FROM Videojuego WHERE title LIKE :title LIMIT 1")
     fun getVideojuegoByTitle(title: String): Videojuego?
+
+    @Query("DELETE FROM Videojuego WHERE id = :id")
+    suspend fun deleteVideojuego(id: Int)
 }

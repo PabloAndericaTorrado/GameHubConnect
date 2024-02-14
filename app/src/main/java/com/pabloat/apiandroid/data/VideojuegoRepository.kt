@@ -38,4 +38,8 @@ class VideojuegoRepository(
     suspend fun searchVideojuegoByTitle(title: String): Videojuego? {
         return localds.searchVideojuegoByTitle(title)
     }
+
+    suspend fun deleteVideojuego(id: Int) {
+        localds.deleteVideojuego(id)
+    }
 }
