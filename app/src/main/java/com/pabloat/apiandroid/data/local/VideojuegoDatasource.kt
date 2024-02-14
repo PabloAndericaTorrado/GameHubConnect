@@ -34,4 +34,8 @@ class VideojuegoDatasource(applicationContext: Context) {
     suspend fun getVideojuegosByGenre(genre: String): Flow<List<Videojuego>> {
         return videojuegoDao.getVideojuegosByGenre(genre)
     }
+
+    suspend fun insertoneVideojuego(videojuego: Videojuego) {
+        videojuegoDao.insertone(videojuego)
+    }
 }

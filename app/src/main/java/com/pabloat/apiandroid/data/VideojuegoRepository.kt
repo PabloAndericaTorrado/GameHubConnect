@@ -1,5 +1,6 @@
 package com.pabloat.apiandroid.data
 
+import android.util.Log
 import com.pabloat.apiandroid.data.local.VideojuegoDatasource
 import com.pabloat.apiandroid.data.local.Videojuego
 import com.pabloat.apiandroid.data.remote.RemoteVideojuegoDataSource
@@ -27,5 +28,10 @@ class VideojuegoRepository(
 
     suspend fun getLocalVideojuego(): Flow<List<Videojuego>>{
         return localds.getAllVideojuego()
+    }
+
+    suspend fun insertone(videojuego: Videojuego) {
+        Log.d("VM", "Repositorio... Añadimos el videojuego: $videojuego")
+        localds.insertoneVideojuego(videojuego)
     }
 }

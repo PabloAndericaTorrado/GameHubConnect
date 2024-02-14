@@ -49,4 +49,11 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
         }
         Log.d("VM", "Petición lanzada. Los datos irán llegando...")
     }
+
+    fun addGame(videojuego: Videojuego) {
+            viewModelScope.launch {
+                Log.d("VM", "Añadimos el videojuego: $videojuego")
+                repository.insertone(videojuego)
+            }
+    }
 }

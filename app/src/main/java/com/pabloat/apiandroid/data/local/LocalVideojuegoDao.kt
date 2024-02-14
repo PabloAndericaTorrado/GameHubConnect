@@ -16,6 +16,9 @@ interface LocalVideojuegoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(videojuegos: List<Videojuego>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertone(videojuego: Videojuego)
+
     @Update
     suspend fun update(videojuego: Videojuego)
 

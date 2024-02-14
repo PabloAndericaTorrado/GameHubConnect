@@ -40,7 +40,7 @@ fun ManageScreen(navHostController: NavHostController, mainViewModel: MainViewMo
         }
 
         Button(
-            onClick = { /* TODO: Implement add action */ },
+            onClick = { navHostController.navigate(Destinations.AddScreen.route) },
             modifier = Modifier.padding(8.dp)
         ) {
             Text("Añadir Juego")
