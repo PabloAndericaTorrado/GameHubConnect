@@ -33,9 +33,6 @@ import com.pabloat.apiandroid.viewmodel.MainViewModel
 fun MainScreen(mainViewModel: MainViewModel) {
     val screenState by mainViewModel.videojuegos.collectAsState()
 
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("Videojuegos") }) },
-        content = {
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
@@ -50,8 +47,7 @@ fun MainScreen(mainViewModel: MainViewModel) {
                 }
             }
         }
-    )
-}
+
 
 
 @Composable

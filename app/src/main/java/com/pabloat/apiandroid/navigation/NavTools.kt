@@ -39,7 +39,7 @@ fun MainTopBar() {
                         .size(32.dp)
                 )
                 Text(
-                    text = "Basic Retrofit",
+                    text = "Videojuegos Store",
                     style = MaterialTheme.typography.titleLarge,
                     textAlign = TextAlign.Start,
                 )
