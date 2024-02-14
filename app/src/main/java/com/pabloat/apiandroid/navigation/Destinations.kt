@@ -11,4 +11,6 @@ sealed class Destinations(val route: String) {
             return "VideogamesGenre/$genre"
         }
     }
+
+    object  InitScreen : Destinations(route = "InitScreen")
 }

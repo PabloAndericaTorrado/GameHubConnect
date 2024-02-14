@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.pabloat.apiandroid.data.VideojuegoRepository
 import com.pabloat.apiandroid.data.local.AppDataBase
@@ -22,6 +23,7 @@ import com.pabloat.apiandroid.data.remote.RemoteVideojuegoDataSource
 import com.pabloat.apiandroid.data.remote.RetrofitBuilder
 import com.pabloat.apiandroid.navigation.MainNaviation
 import com.pabloat.apiandroid.navigation.MainTopBar
+import com.pabloat.apiandroid.ui.views.InitScreen
 import com.pabloat.apiandroid.viewmodel.MainViewModel
 
 class MainActivity : ComponentActivity() {
