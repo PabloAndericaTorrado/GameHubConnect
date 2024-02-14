@@ -33,7 +33,7 @@ fun ManageScreen(navHostController: NavHostController, mainViewModel: MainViewMo
         }
 
         Button(
-            onClick = { /* TODO: Implement edit action */ },
+            onClick = { navHostController.navigate(Destinations.EditSearch.route) },
             modifier = Modifier.padding(8.dp)
         ) {
             Text("Editar Juego")

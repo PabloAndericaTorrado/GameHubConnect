@@ -42,4 +42,8 @@ class VideojuegoRepository(
     suspend fun deleteVideojuego(id: Int) {
         localds.deleteVideojuego(id)
     }
+
+    suspend fun updateVideojuego(videojuego: Videojuego) {
+        localds.updateVideojuego(videojuego)
+    }
 }

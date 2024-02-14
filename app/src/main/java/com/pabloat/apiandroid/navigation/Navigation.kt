@@ -9,6 +9,8 @@ import com.pabloat.apiandroid.ui.views.InitScreen
 import com.pabloat.apiandroid.ui.views.GenreScreen
 import com.pabloat.apiandroid.ui.views.AddScreen
 import com.pabloat.apiandroid.ui.views.DeleteGameScreen
+import com.pabloat.apiandroid.ui.views.EditScreen
+import com.pabloat.apiandroid.ui.views.EditSearch
 import com.pabloat.apiandroid.ui.views.MainScreen
 import com.pabloat.apiandroid.ui.views.ManageScreen
 import com.pabloat.apiandroid.ui.views.VideogameGenreScreen
@@ -47,6 +49,13 @@ fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewMode
 
         composable(Destinations.DeleteGameScreen.route) {
             DeleteGameScreen(onNavController = onNavController, mainViewModel = mainViewmodel)
+        }
+
+        composable(Destinations.EditSearch.route){
+            EditSearch(onNavController = onNavController, mainViewModel = mainViewmodel)
+        }
+        composable(Destinations.EditScreen.route){
+            EditScreen(onNavController = onNavController, mainViewModel = mainViewmodel)
         }
     }
 }

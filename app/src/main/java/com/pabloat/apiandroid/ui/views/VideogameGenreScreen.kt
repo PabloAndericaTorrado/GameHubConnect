@@ -18,7 +18,6 @@ import com.pabloat.apiandroid.ui.util.VideojuegosItem
 import com.pabloat.apiandroid.viewmodel.MainViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VideogameGenreScreen(mainViewModel: MainViewModel, genre: String) {
     val videojuegosList = mainViewModel.videojuegos.value.filter { it.genre == genre }

@@ -37,6 +37,13 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
             ScreenState.Error("Ha ocurrido un error, revise su conexión a internet o inténtelo de nuevo más tarde")
     }
 
+    private val _selectedVideojuego = MutableStateFlow<Videojuego?>(null)
+    val selectedVideojuego: StateFlow<Videojuego?> = _selectedVideojuego
+
+    fun setSelectedVideojuego(videojuego: Videojuego?) {
+        _selectedVideojuego.value = videojuego
+    }
+
     fun getRemoteVideojuego(
     ) {
         viewModelScope.launch(handler) {
@@ -76,4 +83,10 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
             }
         }
     }
+    fun updateVideoGame(videojuego: Videojuego) {
+        viewModelScope.launch {
+            repository.updateVideojuego(videojuego)
+        }
+    }
+
 }
