@@ -27,4 +27,11 @@ class VideojuegoDatasource(applicationContext: Context) {
     suspend fun deleteVideojuego(videojuego: Videojuego) {
         videojuegoDao.delete(videojuego)
     }
+
+    suspend fun getAllGenres(): Flow<List<String>> {
+        return videojuegoDao.getAllGenres()
+    }
+    suspend fun getVideojuegosByGenre(genre: String): Flow<List<Videojuego>> {
+        return videojuegoDao.getVideojuegosByGenre(genre)
+    }
 }

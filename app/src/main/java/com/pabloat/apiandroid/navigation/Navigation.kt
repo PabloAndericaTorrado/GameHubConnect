@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.pabloat.apiandroid.ui.views.MainScreen
+import com.pabloat.apiandroid.ui.views.VideogamesGenre
 import com.pabloat.apiandroid.viewmodel.MainViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -14,6 +15,15 @@ fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewMode
     NavHost(navController = onNavController, startDestination = Destinations.MainScreen.route) {
         composable(Destinations.MainScreen.route) {
             MainScreen(mainViewmodel)
+        }
+        composable(Destinations.GenreScreen.route) {
+
+        }
+        composable(Destinations.VideoGamesGenre.route) { backStackEntry ->
+            val genre = backStackEntry.arguments?.getString("genre")
+            if (genre != null) {
+                VideogamesGenre(onNavController, genre)
+            }
         }
 
     }
