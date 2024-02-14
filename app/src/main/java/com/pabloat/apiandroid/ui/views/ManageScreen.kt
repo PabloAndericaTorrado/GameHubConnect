@@ -47,7 +47,7 @@ fun ManageScreen(navHostController: NavHostController, mainViewModel: MainViewMo
         }
 
         Button(
-            onClick = { /* TODO: Implement delete action */ },
+            onClick = { navHostController.navigate(Destinations.DeleteGameScreen.route) },
             modifier = Modifier.padding(8.dp)
         ) {
             Text("Borrar Juego")

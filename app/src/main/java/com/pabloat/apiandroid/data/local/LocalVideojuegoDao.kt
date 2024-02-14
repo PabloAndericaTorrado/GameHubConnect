@@ -31,4 +31,6 @@ interface LocalVideojuegoDao {
     @Query("SELECT * FROM Videojuego WHERE genre = :genre")
     fun getVideojuegosByGenre(genre: String): Flow<List<Videojuego>>
 
+    @Query("SELECT * FROM Videojuego WHERE title LIKE :title LIMIT 1")
+    fun getVideojuegoByTitle(title: String): Videojuego?
 }

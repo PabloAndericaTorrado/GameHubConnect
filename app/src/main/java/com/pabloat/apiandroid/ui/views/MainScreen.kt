@@ -26,7 +26,7 @@ import com.pabloat.apiandroid.ui.util.ScreenState
 import com.pabloat.apiandroid.ui.util.VideojuegosItem
 import com.pabloat.apiandroid.viewmodel.MainViewModel
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalFoundationApi
 @Composable

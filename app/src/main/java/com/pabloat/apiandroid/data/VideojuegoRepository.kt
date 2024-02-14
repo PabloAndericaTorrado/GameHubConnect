@@ -34,4 +34,8 @@ class VideojuegoRepository(
         Log.d("VM", "Repositorio... Añadimos el videojuego: $videojuego")
         localds.insertoneVideojuego(videojuego)
     }
+
+    suspend fun searchVideojuegoByTitle(title: String): Videojuego? {
+        return localds.searchVideojuegoByTitle(title)
+    }
 }

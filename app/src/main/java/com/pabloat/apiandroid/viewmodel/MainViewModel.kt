@@ -8,7 +8,9 @@ import com.pabloat.apiandroid.data.VideojuegoRepository
 import com.pabloat.apiandroid.data.local.Videojuego
 import com.pabloat.apiandroid.ui.util.ScreenState
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -16,6 +18,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() {
 
@@ -55,5 +58,11 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
                 Log.d("VM", "Añadimos el videojuego: $videojuego")
                 repository.insertone(videojuego)
             }
+    }
+
+    suspend fun searchGame(gameTitle: String): Videojuego? {
+        return withContext(Dispatchers.IO) {
+            repository.searchVideojuegoByTitle(gameTitle)
+        }
     }
 }

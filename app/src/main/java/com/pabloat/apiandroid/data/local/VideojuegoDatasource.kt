@@ -38,4 +38,8 @@ class VideojuegoDatasource(applicationContext: Context) {
     suspend fun insertoneVideojuego(videojuego: Videojuego) {
         videojuegoDao.insertone(videojuego)
     }
+
+    suspend fun searchVideojuegoByTitle(title: String): Videojuego? {
+        return videojuegoDao.getVideojuegoByTitle(title)
+    }
 }
