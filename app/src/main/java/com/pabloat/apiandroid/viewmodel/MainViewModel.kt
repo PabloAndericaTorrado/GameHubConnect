@@ -25,9 +25,9 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
     private val _videojuegos: MutableStateFlow<List<Videojuego>> = MutableStateFlow(listOf())
     var videojuegos = _videojuegos.asStateFlow()
 
-    val generos: StateFlow<List<String>> = videojuegos.map { videojuegos ->
-        videojuegos.map { it.genre }.distinct()
-    }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+    private val _generos: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
+    val generos: StateFlow<List<String>> = _generos
+
 
     private val _uiState: MutableStateFlow<ScreenState> = MutableStateFlow(ScreenState.Loading)
     val uiState: StateFlow<ScreenState> = _uiState.asStateFlow()
@@ -35,6 +35,17 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
     private val handler = CoroutineExceptionHandler { _, exception ->
         _uiState.value =
             ScreenState.Error("Ha ocurrido un error, revise su conexión a internet o inténtelo de nuevo más tarde")
+    }
+
+    init {
+        viewModelScope.launch(handler) {
+            repository.getAllGenres().collect { genres ->
+                _generos.value = genres
+            }
+        }
+    }
+    fun getVideojuegosByGenre(genre: String): Flow<List<Videojuego>> {
+        return repository.getVideojuegosByGenre(genre)
     }
 
     private val _selectedVideojuego = MutableStateFlow<Videojuego?>(null)

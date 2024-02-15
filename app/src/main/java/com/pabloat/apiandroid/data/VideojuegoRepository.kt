@@ -46,4 +46,12 @@ class VideojuegoRepository(
     suspend fun updateVideojuego(videojuego: Videojuego) {
         localds.updateVideojuego(videojuego)
     }
+
+    fun getAllGenres(): Flow<List<String>> {
+        return localds.getAllGenres()
+    }
+
+    fun getVideojuegosByGenre(genre: String): Flow<List<Videojuego>> {
+        return localds.getVideojuegosByGenre(genre)
+    }
 }
