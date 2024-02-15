@@ -22,7 +22,7 @@ import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewModel,fireBaseViewModel: FireBaseViewModel) {
-    NavHost(navController = onNavController, startDestination = Destinations.LoginScreen.route) {
+    NavHost(navController = onNavController, startDestination = Destinations.InitScreen.route) {
         composable(Destinations.MainScreen.route) {
             MainScreen(mainViewmodel,navHostController = onNavController)
         }

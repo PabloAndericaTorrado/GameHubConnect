@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.pabloat.GameHubConnect.navigation.Destinations
-import com.pabloat.GameHubConnect.ui.util.VideojuegosItem
+import com.pabloat.GameHubConnect.ui.util.VideojuegoCard
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
@@ -32,7 +32,7 @@ fun MainScreen(mainViewModel: MainViewModel, navHostController: NavHostControlle
             val videojuegosList by mainViewModel.videojuegos.collectAsState()
             LazyColumn(modifier = Modifier.weight(9f)) {
                 items(videojuegosList) { videojuego ->
-                    VideojuegosItem(videojuego)
+                    VideojuegoCard(videojuego)
                 }
             }
             VolverAtras(

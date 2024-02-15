@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -13,7 +14,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.pabloat.GameHubConnect.data.VideojuegoRepository
 import com.pabloat.GameHubConnect.data.local.AppDataBase
@@ -22,6 +22,7 @@ import com.pabloat.GameHubConnect.data.remote.RemoteVideojuegoDataSource
 import com.pabloat.GameHubConnect.data.remote.RetrofitBuilder
 import com.pabloat.GameHubConnect.navigation.MainNaviation
 import com.pabloat.GameHubConnect.navigation.MainTopBar
+import com.pabloat.GameHubConnect.ui.util.NavigationBottomBar
 import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 
@@ -54,12 +55,15 @@ fun MainApp() {
 
     Scaffold(topBar = { MainTopBar() }) { it ->
         Column(
-            modifier = Modifier.padding(it),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        )
-        {
-            MainNaviation(navHostController, mainViewModel,firebaseViewModel)
+            modifier = Modifier
+                .padding(it)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Box(modifier = Modifier.weight(1f)) {
+                MainNaviation(navHostController, mainViewModel,firebaseViewModel)
+            }
+            NavigationBottomBar(navHostController)
         }
     }
 }
-

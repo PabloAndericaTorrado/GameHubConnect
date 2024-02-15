@@ -12,7 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.pabloat.GameHubConnect.ui.util.VideojuegosItem
+import com.pabloat.GameHubConnect.ui.util.VideojuegoCard
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
@@ -27,7 +27,7 @@ fun VideogameGenreScreen(mainViewModel: MainViewModel, genre: String) {
     ) {
         LazyColumn {
             items(videojuegosList) { videojuego ->
-                VideojuegosItem(videojuego)
+                VideojuegoCard(videojuego)
             }
         }
     }
