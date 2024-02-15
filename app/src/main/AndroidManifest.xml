@@ -7,16 +7,16 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="GameHubConnect"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ApiAndroid"
+        android:theme="@style/Theme.GameHubConnect"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.ApiAndroid">
+            android:label="GameHubConnect"
+            android:theme="@style/Theme.GameHubConnect">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

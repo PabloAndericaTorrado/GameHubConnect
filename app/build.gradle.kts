@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.pabloat.apiandroid"
+    namespace = "com.pabloat.GameHubConnect"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.pabloat.apiandroid"
+        applicationId = "com.pabloat.GameHubConnect"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

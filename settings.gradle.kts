@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ApiAndroid"
+rootProject.name = "GameHubConnect"
 include(":app")
  
