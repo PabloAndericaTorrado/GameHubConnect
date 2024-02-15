@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.pabloat.apiandroid.data.local.Videojuego
+import com.pabloat.apiandroid.navigation.Destinations
 import com.pabloat.apiandroid.ui.util.VideojuegosDeleteItem
 import com.pabloat.apiandroid.viewmodel.MainViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -37,6 +38,7 @@ fun DeleteGameScreen(onNavController: NavHostController, mainViewModel: MainView
         BuscarJuegoTextField(texto, mainViewModel, coroutineScope, videojuegoEncontrado)
         MostrarBotonEliminar(videojuegoEncontrado, mainViewModel, coroutineScope, showSnackbar)
         MostrarSnackbar(showSnackbar)
+        VolverAtras(navHostController = onNavController, route = Destinations.ManageScreen.route, text = "Volver al menú")
     }
 }
 

@@ -21,7 +21,7 @@ import com.pabloat.apiandroid.viewmodel.MainViewModel
 fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewModel) {
     NavHost(navController = onNavController, startDestination = Destinations.InitScreen.route) {
         composable(Destinations.MainScreen.route) {
-            MainScreen(mainViewmodel)
+            MainScreen(mainViewmodel,navHostController = onNavController)
         }
         composable(Destinations.ManageScreen.route) {
             ManageScreen(navHostController = onNavController, mainViewModel = mainViewmodel)
@@ -31,7 +31,8 @@ fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewMode
                 mainViewModel = mainViewmodel,
                 onGenreSelected = { genre ->
                     onNavController.navigate(Destinations.VideoGamesGenre.createRoute(genre))
-                }
+                },
+                onNavController
             )
         }
         composable(Destinations.VideoGamesGenre.route) { backStackEntry ->

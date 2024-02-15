@@ -19,11 +19,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.pabloat.apiandroid.data.local.Videojuego
 import com.pabloat.apiandroid.navigation.Destinations
-import com.pabloat.apiandroid.ui.util.VideojuegosItem
 import com.pabloat.apiandroid.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
 
@@ -32,6 +30,7 @@ fun EditSearch(onNavController: NavHostController, mainViewModel: MainViewModel)
     val texto = remember { mutableStateOf("") }
     val videojuegoEncontrado = remember { mutableStateOf<Videojuego?>(null) }
     val coroutineScope = rememberCoroutineScope()
+    val volverBuscar = remember { mutableStateOf(false) }
 
     Column (
         modifier = Modifier.fillMaxSize(),
@@ -52,15 +51,12 @@ fun EditSearch(onNavController: NavHostController, mainViewModel: MainViewModel)
                 mainViewModel.setSelectedVideojuego(videojuego)
             }
             onNavController.navigate(Destinations.EditScreen.route)
+            volverBuscar.value = true
 
         }) {
             Text("Buscar juego")
         }
-
-        videojuegoEncontrado.value?.let { videojuego ->
-            VideojuegosItem(videojuego = videojuego)
-        }
-    }
+VolverAtras(navHostController = onNavController, route = Destinations.ManageScreen.route, text = "Volver al menú")    }
 }
 
 @Composable
@@ -71,7 +67,9 @@ fun EditScreen(onNavController: NavHostController, mainViewModel: MainViewModel)
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        Alignment.CenterHorizontally
+
     ) {
         var editedTitle by remember { mutableStateOf<String>(videojuego?.title ?: "") }
         TextField(
@@ -125,11 +123,18 @@ fun EditScreen(onNavController: NavHostController, mainViewModel: MainViewModel)
                 if (editedVideojuego != null) {
                     mainViewModel.updateVideoGame(editedVideojuego)
                 }
-                onNavController.navigate(Destinations.ManageScreen.route)
             },
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Text("Guardar cambios")
         }
+        VolverAtras(navHostController = onNavController , route = Destinations.ManageScreen.route, text = "Volver al Menu")
+        VolverAtras(navHostController = onNavController,Destinations.EditScreen.route,"Volver a Buscar")
+    }
+}
+@Composable
+fun VolverAtras(navHostController: NavHostController, route: String, text: String) {
+    Button(onClick = {  navHostController.navigate(route) }) {
+        Text(text = text)
     }
 }

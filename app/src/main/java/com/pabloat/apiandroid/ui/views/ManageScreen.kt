@@ -52,5 +52,6 @@ fun ManageScreen(navHostController: NavHostController, mainViewModel: MainViewMo
         ) {
             Text("Borrar Juego")
         }
+        VolverAtras(navHostController = navHostController, route = Destinations.InitScreen.route, text = "Volver Pantalla Inicio")
     }
 }
