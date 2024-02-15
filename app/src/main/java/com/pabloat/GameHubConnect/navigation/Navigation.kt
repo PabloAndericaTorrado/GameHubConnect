@@ -2,6 +2,7 @@ package com.pabloat.GameHubConnect.navigation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -11,15 +12,17 @@ import com.pabloat.GameHubConnect.ui.views.AddScreen
 import com.pabloat.GameHubConnect.ui.views.DeleteGameScreen
 import com.pabloat.GameHubConnect.ui.views.EditScreen
 import com.pabloat.GameHubConnect.ui.views.EditSearch
+import com.pabloat.GameHubConnect.ui.views.LoginScreen
 import com.pabloat.GameHubConnect.ui.views.MainScreen
 import com.pabloat.GameHubConnect.ui.views.ManageScreen
 import com.pabloat.GameHubConnect.ui.views.VideogameGenreScreen
+import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewModel) {
-    NavHost(navController = onNavController, startDestination = Destinations.InitScreen.route) {
+fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewModel,fireBaseViewModel: FireBaseViewModel) {
+    NavHost(navController = onNavController, startDestination = Destinations.LoginScreen.route) {
         composable(Destinations.MainScreen.route) {
             MainScreen(mainViewmodel,navHostController = onNavController)
         }
@@ -57,6 +60,9 @@ fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewMode
         }
         composable(Destinations.EditScreen.route){
             EditScreen(onNavController = onNavController, mainViewModel = mainViewmodel)
+        }
+        composable(Destinations.LoginScreen.route){
+            LoginScreen(navController = onNavController,fireBaseViewModel)
         }
     }
 }

@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -89,5 +90,13 @@ dependencies {
     //Livedata observeAsAstate y collectAsStatewithLifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
     implementation("androidx.compose.runtime:runtime-livedata")
+
+    // auth
+    implementation(platform("com.google.firebase:firebase-bom:32.7.2"));
+    implementation ("com.google.firebase:firebase-auth-ktx")
+    implementation ("com.google.firebase:firebase-firestore-ktx")
+
+    //iconos
+    implementation("androidx.compose.material:material-icons-extended:1.6.1")
 
 }

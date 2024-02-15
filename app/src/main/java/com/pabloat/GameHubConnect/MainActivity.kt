@@ -22,6 +22,7 @@ import com.pabloat.GameHubConnect.data.remote.RemoteVideojuegoDataSource
 import com.pabloat.GameHubConnect.data.remote.RetrofitBuilder
 import com.pabloat.GameHubConnect.navigation.MainNaviation
 import com.pabloat.GameHubConnect.navigation.MainTopBar
+import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 
 class MainActivity : ComponentActivity() {
@@ -47,6 +48,7 @@ fun MainApp() {
     val localDatasource = VideojuegoDatasource(LocalContext.current)
     val repository = VideojuegoRepository(localDatasource, remoteDatasource)
     val mainViewModel = MainViewModel(repository)
+    val firebaseViewModel = FireBaseViewModel()
     AppDataBase.getDatabase(LocalContext.current)
     mainViewModel.getRemoteVideojuego()
 
@@ -56,7 +58,7 @@ fun MainApp() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
         )
         {
-            MainNaviation(navHostController, mainViewModel)
+            MainNaviation(navHostController, mainViewModel,firebaseViewModel)
         }
     }
 }

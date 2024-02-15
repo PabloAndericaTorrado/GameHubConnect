@@ -22,4 +22,6 @@ sealed class Destinations(val route: String) {
     object EditSearch : Destinations(route = "EditSearch")
 
     object EditScreen : Destinations(route = "EditScreen")
+
+    object LoginScreen : Destinations(route = "LoginScreen")
 }

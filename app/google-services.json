@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "847511260397",
+    "project_id": "gamehubconnect-578fb",
+    "storage_bucket": "gamehubconnect-578fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:847511260397:android:7063133c543ffb8ca5d0e4",
+        "android_client_info": {
+          "package_name": "com.pabloat.GameHubConnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA16n1t-w62fuF_z1og5oDA4PxXAATChJQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
