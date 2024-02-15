@@ -98,5 +98,8 @@ dependencies {
 
     //iconos
     implementation("androidx.compose.material:material-icons-extended:1.6.1")
-
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation ("com.google.accompanist:accompanist-appcompat-theme:0.28.0")
+    implementation("androidx.compose.material:material:1.6.1")
+    implementation("androidx.compose.animation:animation:1.6.1")
 }

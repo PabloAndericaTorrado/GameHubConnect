@@ -2,8 +2,11 @@ package com.pabloat.GameHubConnect.ui.util
 
 import android.util.Log
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -15,13 +18,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ListAlt
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.Card
 import androidx.compose.material3.Card
+import androidx.compose.material.MaterialTheme as MaterialTheme1
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
@@ -32,6 +37,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -39,13 +45,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import coil.transform.RoundedCornersTransformation
 import com.pabloat.GameHubConnect.data.local.Videojuego
-@Composable
+
+/*@Composable
 fun VideojuegoCard(videojuego: Videojuego) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
@@ -61,6 +72,46 @@ fun VideojuegoCard(videojuego: Videojuego) {
             Text(text = "Género: ${videojuego.genre}", modifier = Modifier.padding(16.dp), textAlign = TextAlign.Center)
             Text(text = "Plataforma: ${videojuego.platform}", modifier = Modifier.padding(16.dp), textAlign = TextAlign.Center)
             Text(text = "Fecha Salida: ${videojuego.date}", modifier = Modifier.padding(16.dp), textAlign = TextAlign.Center)
+        }
+    }
+}*/
+
+@Composable
+fun VideojuegoCard(videojuego: Videojuego) {
+    var isCardElevated by remember { mutableStateOf(false) }
+    val cardElevation by animateDpAsState(if (isCardElevated) 16.dp else 8.dp, tween(500), label = "")
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .clickable(
+                onClick = { isCardElevated = !isCardElevated },
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() }
+            ),
+        shape = RoundedCornerShape(16.dp),
+        elevation = cardElevation,
+    ) {
+        Column {
+            Image(
+                painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current).data(data = videojuego.thumbnail)
+                        .apply(block = fun ImageRequest.Builder.() {
+                            transformations(RoundedCornersTransformation(10f))
+                        }).build()
+                ),
+                contentDescription = null,
+                modifier = Modifier.height(200.dp),
+                contentScale = ContentScale.Crop
+            )
+            Text(
+                text = videojuego.title,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(8.dp),
+                style = MaterialTheme1.typography.h6,
+                color = MaterialTheme.colorScheme.onBackground
+            )
         }
     }
 }
