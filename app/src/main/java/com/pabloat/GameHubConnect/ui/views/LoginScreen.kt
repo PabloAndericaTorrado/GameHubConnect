@@ -198,18 +198,26 @@ fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewMod
                     Log.d("MV", "Logueado con $email y $password")
                     fireBaseViewModel.storeEmail(email)
                         Log.d("MV", "Entra en el try")
-                        fireBaseViewModel.SingInWithEmailAndPassword(email, password) {
+                    fireBaseViewModel.SingInWithEmailAndPassword(email, password,
+                        home = {
                             if (fireBaseViewModel.getStoredEmail() == "admin@admin.com") {
                                 Log.d("MV", "Es ADMIN")
                                 navController.navigate(Destinations.ManageScreen.route)
-                            }else{
+                            } else {
                                 Log.d("MV", "No es ADMIN")
                                 navController.navigate(Destinations.InitScreen.route)
                             }
+                        },
+                        fail = {
+                            showSnackbar.value = true
                         }
+                    )
+
                     Log.d("MV", "Aqui Chat")
                 }
-
+                if (showSnackbar.value) {
+                    MostrarSnackbar(showSnackbar)
+                }
 
             } else {
                 Text("crea una cuenta")
@@ -254,7 +262,7 @@ private fun MostrarSnackbar(showSnackbar: MutableState<Boolean>) {
                 }
             }
         ) {
-            Text("El videojuego ha sido borrado")
+            Text("El Correo o la Contraseña no son correctos")
         }
     }
 }

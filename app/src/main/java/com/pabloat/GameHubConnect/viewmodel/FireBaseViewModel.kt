@@ -40,15 +40,15 @@ class FireBaseViewModel:ViewModel() {
         return _storedError.value
     }
 
-    fun SingInWithEmailAndPassword(email: String, password: String, home: () -> Unit) = viewModelScope.launch {
+    fun SingInWithEmailAndPassword(email: String, password: String, home: () -> Unit, fail: () -> Unit) = viewModelScope.launch {
         try {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("MV", "Logueado")
                     home()
                 } else {
-                    errorMessage.value = "No existe ese email o contraseña"
-                    Log.d("MV", "Falló el inicio de sesión: ${task.exception?.message}")
+                    Log.d("MV", "Inicio de sesión fallido")
+                    fail()
                 }
             }
         } catch (ex: Exception) {
@@ -56,6 +56,7 @@ class FireBaseViewModel:ViewModel() {
             Log.e("MV", "Excepción en SingInWithEmailAndPassword: ${ex.message}", ex)
         }
     }
+
 
 
     fun createUserWithEmailAndPassword(
