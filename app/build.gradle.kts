@@ -102,4 +102,5 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-appcompat-theme:0.28.0")
     implementation("androidx.compose.material:material:1.6.1")
     implementation("androidx.compose.animation:animation:1.6.1")
+    implementation("androidx.compose.material3:material3:1.2.0")
 }
