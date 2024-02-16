@@ -21,8 +21,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -40,6 +42,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.pabloat.GameHubConnect.navigation.Destinations
 import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel
+
 
 @Composable
 fun UserForm(
@@ -177,6 +180,7 @@ fun EmailInput(
 
 @Composable
 fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewModel = viewModel()) {
+    val showSnackbar = remember { mutableStateOf(false) }
     val showLoginForm = rememberSaveable {
         mutableStateOf(true)
     }
@@ -191,10 +195,21 @@ fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewMod
                     isCreatedAccount = false
                 ) { email, password ->
                     Log.d("MV", "Logueado con $email y $password")
-                    fireBaseViewModel.SingInWithEmailAndPassword(email, password) {
-                        navController.navigate(Destinations.InitScreen.route)
-                    }
+                    fireBaseViewModel.storeEmail(email)
+                        Log.d("MV", "Entra en el try")
+                        fireBaseViewModel.SingInWithEmailAndPassword(email, password) {
+                            if (fireBaseViewModel.getStoredEmail() == "admin@admin.com") {
+                                Log.d("MV", "Es ADMIN")
+                                navController.navigate(Destinations.ManageScreen.route)
+                            }else{
+                                Log.d("MV", "No es ADMIN")
+                                navController.navigate(Destinations.InitScreen.route)
+                            }
+                        }
+                    Log.d("MV", "Aqui Chat")
                 }
+
+
             } else {
                 Text("crea una cuenta")
                 UserForm(
@@ -219,9 +234,26 @@ fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewMod
                     else "inicia Sesion"
                 Text(text = text1)
                 Text(text = text2,
-                    modifier = Modifier.clickable { showLoginForm.value = !showLoginForm.value }.padding(start = 5.dp),
+                    modifier = Modifier
+                        .clickable { showLoginForm.value = !showLoginForm.value }
+                        .padding(start = 5.dp),
                     color = Color.Cyan)
             }
+        }
+    }
+}
+
+@Composable
+private fun MostrarSnackbar(showSnackbar: MutableState<Boolean>) {
+    if (showSnackbar.value) {
+        Snackbar(
+            action = {
+                TextButton(onClick = { showSnackbar.value = false }) {
+                    Text("Cerrar")
+                }
+            }
+        ) {
+            Text("El videojuego ha sido borrado")
         }
     }
 }
