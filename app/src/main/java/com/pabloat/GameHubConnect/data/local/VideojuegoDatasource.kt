@@ -46,4 +46,9 @@ class VideojuegoDatasource(applicationContext: Context) {
     suspend fun deleteVideojuego(id: Int) {
         videojuegoDao.deleteVideojuego(id)
     }
+
+    suspend fun getVideojuegoById(videojuegoId: Int): Videojuego? {
+        return videojuegoDao.getVideojuegoById(videojuegoId)
+    }
+
 }

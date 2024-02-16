@@ -32,7 +32,7 @@ fun MainScreen(mainViewModel: MainViewModel, navHostController: NavHostControlle
             val videojuegosList by mainViewModel.videojuegos.collectAsState()
             LazyColumn(modifier = Modifier.weight(9f)) {
                 items(videojuegosList) { videojuego ->
-                    VideojuegoCard(videojuego)
+                    VideojuegoCard(navHostController,videojuego,mainViewModel)
                 }
             }
             VolverAtras(

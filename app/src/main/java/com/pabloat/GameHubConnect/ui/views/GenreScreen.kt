@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -20,9 +19,12 @@ import com.pabloat.GameHubConnect.ui.util.GenreItem
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GenreScreen(mainViewModel: MainViewModel, onGenreSelected: (String) -> Unit, navHostController: NavHostController) {
+fun GenreScreen(
+    mainViewModel: MainViewModel,
+    onGenreSelected: (String) -> Unit,
+    navHostController: NavHostController
+) {
     val genres by mainViewModel.generos.collectAsState()
     Box(modifier = Modifier.fillMaxSize()) {
         Column(

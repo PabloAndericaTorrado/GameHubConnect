@@ -10,6 +10,7 @@ import com.pabloat.GameHubConnect.ui.views.InitScreen
 import com.pabloat.GameHubConnect.ui.views.GenreScreen
 import com.pabloat.GameHubConnect.ui.views.AddScreen
 import com.pabloat.GameHubConnect.ui.views.DeleteGameScreen
+import com.pabloat.GameHubConnect.ui.views.DetailGameScreen
 import com.pabloat.GameHubConnect.ui.views.EditScreen
 import com.pabloat.GameHubConnect.ui.views.EditSearch
 import com.pabloat.GameHubConnect.ui.views.LoginScreen
@@ -41,7 +42,7 @@ fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewMode
         composable(Destinations.VideoGamesGenre.route) { backStackEntry ->
             val genre = backStackEntry.arguments?.getString("genre")
             if (genre != null) {
-                VideogameGenreScreen(mainViewModel = mainViewmodel, genre = genre)
+                VideogameGenreScreen(onNavController,mainViewModel = mainViewmodel, genre = genre)
             }
         }
         composable(Destinations.InitScreen.route) {
@@ -64,5 +65,10 @@ fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewMode
         composable(Destinations.LoginScreen.route){
             LoginScreen(navController = onNavController,fireBaseViewModel)
         }
+        composable(Destinations.DetailGameScreen.route){
+            DetailGameScreen(onNavController,mainViewmodel)
+        }
+
+
     }
 }

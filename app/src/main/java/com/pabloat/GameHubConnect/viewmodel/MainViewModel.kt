@@ -34,6 +34,9 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
             ScreenState.Error("Ha ocurrido un error, revise su conexión a internet o inténtelo de nuevo más tarde")
     }
 
+    private val _selectedVideojuegoId = MutableStateFlow<Int?>(null)
+    val selectedVideojuegoId: StateFlow<Int?> = _selectedVideojuegoId
+
     init {
         viewModelScope.launch(handler) {
             repository.getAllGenres().collect { genres ->
@@ -41,6 +44,11 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
             }
         }
     }
+
+    fun setSelectedVideojuegoId(videojuegoId: Int?) {
+        _selectedVideojuegoId.value = videojuegoId
+    }
+
     fun getVideojuegosByGenre(genre: String): Flow<List<Videojuego>> {
         return repository.getVideojuegosByGenre(genre)
     }
@@ -95,6 +103,13 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
         viewModelScope.launch {
             repository.updateVideojuego(videojuego)
         }
+    }
+
+    suspend fun getSelectedVideojuego(videojuegoId:Int): Videojuego? {
+        if (videojuegoId != null) {
+            return repository.getVideojuegoById(videojuegoId)
+        }
+        return null
     }
 
 }

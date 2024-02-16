@@ -53,4 +53,9 @@ class VideojuegoRepository(
     fun getVideojuegosByGenre(genre: String): Flow<List<Videojuego>> {
         return localds.getVideojuegosByGenre(genre)
     }
+
+    suspend fun getVideojuegoById(videojuegoId: Int): Videojuego? {
+        return localds.getVideojuegoById(videojuegoId)
+    }
+
 }

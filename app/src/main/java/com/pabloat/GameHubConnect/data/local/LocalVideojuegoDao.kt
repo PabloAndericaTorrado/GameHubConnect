@@ -36,4 +36,8 @@ interface LocalVideojuegoDao {
 
     @Query("DELETE FROM Videojuego WHERE id = :id")
     suspend fun deleteVideojuego(id: Int)
+
+    @Query("SELECT * FROM Videojuego WHERE id = :videojuegoId")
+    suspend fun getVideojuegoById(videojuegoId: Int): Videojuego?
+
 }

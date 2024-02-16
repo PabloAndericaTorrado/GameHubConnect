@@ -6,7 +6,6 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +23,7 @@ import androidx.compose.material.icons.automirrored.filled.ListAlt
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.Card
 import androidx.compose.material.MaterialTheme as MaterialTheme1
 import androidx.compose.material3.CardDefaults
@@ -55,6 +55,8 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.transform.RoundedCornersTransformation
 import com.pabloat.GameHubConnect.data.local.Videojuego
+import com.pabloat.GameHubConnect.navigation.Destinations
+import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 
 /*@Composable
 fun VideojuegoCard(videojuego: Videojuego) {
@@ -76,19 +78,29 @@ fun VideojuegoCard(videojuego: Videojuego) {
     }
 }*/
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun VideojuegoCard(videojuego: Videojuego) {
+fun VideojuegoCard(
+    onNavController: NavHostController,
+    videojuego: Videojuego,
+    mainViewModel: MainViewModel
+) {
     var isCardElevated by remember { mutableStateOf(false) }
-    val cardElevation by animateDpAsState(if (isCardElevated) 16.dp else 8.dp, tween(500), label = "")
+    val cardElevation by animateDpAsState(
+        if (isCardElevated) 16.dp else 8.dp,
+        tween(500),
+        label = ""
+    )
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-            .clickable(
-                onClick = { isCardElevated = !isCardElevated },
-                indication = null,
-                interactionSource = remember { MutableInteractionSource() }
-            ),
+            .padding(8.dp),
+        onClick = {
+            isCardElevated = !isCardElevated
+            mainViewModel.setSelectedVideojuegoId(videojuego.id)
+            Log.d("MV", "Pulsdo")
+            onNavController.navigate(Destinations.DetailGameScreen.route)
+        },
         shape = RoundedCornerShape(16.dp),
         elevation = cardElevation,
     ) {
@@ -118,7 +130,7 @@ fun VideojuegoCard(videojuego: Videojuego) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VideojuegosDeleteItem(videojuego: Videojuego, onDeleteClick: () -> Unit){
+fun VideojuegosDeleteItem(videojuego: Videojuego, onDeleteClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -146,7 +158,7 @@ fun VideojuegosDeleteItem(videojuego: Videojuego, onDeleteClick: () -> Unit){
 
         }
 
-        OutlinedButton(onClick = {onDeleteClick()}) {
+        OutlinedButton(onClick = { onDeleteClick() }) {
             Text(text = "Borrar")
         }
     }
@@ -191,8 +203,10 @@ fun NavigationBottomBar(onNavHostController: NavHostController) {
                     icon = item.icon,
                     label = item.label,
                     selected = selectedItem == index,
-                    onClick = { selectedItem = index
-                        onNavHostController.navigate(item.route)  },
+                    onClick = {
+                        selectedItem = index
+                        onNavHostController.navigate(item.route)
+                    },
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -219,7 +233,9 @@ fun NavigationBottomBarItem(
 
     Column(
         modifier = modifier
-            .clickable(indication = null, interactionSource = remember { MutableInteractionSource() }) { onClick() }
+            .clickable(
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() }) { onClick() }
             .scale(scale),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

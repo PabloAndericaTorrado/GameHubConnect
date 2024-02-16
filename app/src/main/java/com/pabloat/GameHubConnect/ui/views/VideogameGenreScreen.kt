@@ -12,12 +12,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.pabloat.GameHubConnect.ui.util.VideojuegoCard
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
 @Composable
-fun VideogameGenreScreen(mainViewModel: MainViewModel, genre: String) {
+fun VideogameGenreScreen(onNavController: NavHostController, mainViewModel: MainViewModel, genre: String) {
     val videojuegosList by mainViewModel.getVideojuegosByGenre(genre = genre).collectAsState(emptyList())
     Box(
         contentAlignment = Alignment.Center,
@@ -27,7 +28,7 @@ fun VideogameGenreScreen(mainViewModel: MainViewModel, genre: String) {
     ) {
         LazyColumn {
             items(videojuegosList) { videojuego ->
-                VideojuegoCard(videojuego)
+                VideojuegoCard(onNavController,videojuego,mainViewModel)
             }
         }
     }

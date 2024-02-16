@@ -184,6 +184,7 @@ fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewMod
     val showLoginForm = rememberSaveable {
         mutableStateOf(true)
     }
+    val (errorMessage, setErrorMessage) = remember { mutableStateOf("") }
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
