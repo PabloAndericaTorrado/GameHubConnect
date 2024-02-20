@@ -1,13 +1,11 @@
 package com.pabloat.GameHubConnect.navigation
 
-import android.content.Context
+import AddRatingScreen
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.pabloat.GameHubConnect.ui.views.AddRatingScreen
 import com.pabloat.GameHubConnect.ui.views.AddScreen
 import com.pabloat.GameHubConnect.ui.views.DeleteGameScreen
 import com.pabloat.GameHubConnect.ui.views.DetailGameScreen
@@ -21,46 +19,11 @@ import com.pabloat.GameHubConnect.ui.views.ManageScreen
 import com.pabloat.GameHubConnect.ui.views.VideogameGenreScreen
 import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
-import com.pabloat.GameHubConnect.viewmodel.PreferenceUtils
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MainNavigation(
-    onNavController: NavHostController,
-    mainViewmodel: MainViewModel,
-    fireBaseViewModel: FireBaseViewModel,
-    context: Context
-) {
-    val preferencesUtils = PreferenceUtils()
-
-    val rememberMeState = preferencesUtils.getRememberMeState(context)
-
-    LaunchedEffect(rememberMeState) {
-        if (rememberMeState) {
-            val savedEmail = preferencesUtils.getSavedEmail(context)
-            val savedPassword = preferencesUtils.getSavedPassword(context)
-            if (savedEmail != null && savedPassword != null) {
-                fireBaseViewModel.SingInWithEmailAndPassword(context, savedEmail, savedPassword,
-                    home = {
-                        if (fireBaseViewModel.getStoredEmail() == "admin@admin.com") {
-                            onNavController.navigate(Destinations.ManageScreen.route)
-                        } else {
-                            onNavController.navigate(Destinations.InitScreen.route)
-                        }
-                    },
-                    fail = {
-                        onNavController.navigate(Destinations.LoginScreen.route)
-                    }
-                )
-            } else {
-                onNavController.navigate(Destinations.LoginScreen.route)
-            }
-        } else {
-            onNavController.navigate(Destinations.LoginScreen.route)
-        }
-    }
-
-    NavHost(navController = onNavController, startDestination = Destinations.LoginScreen.route) {
+fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewModel,fireBaseViewModel: FireBaseViewModel) {
+    NavHost(navController = onNavController, startDestination = Destinations.ManageScreen.route) {
         composable(Destinations.MainScreen.route) {
             MainScreen(mainViewmodel, navHostController = onNavController)
         }
@@ -79,7 +42,7 @@ fun MainNavigation(
         composable(Destinations.VideoGamesGenre.route) { backStackEntry ->
             val genre = backStackEntry.arguments?.getString("genre")
             if (genre != null) {
-                VideogameGenreScreen(onNavController, mainViewModel = mainViewmodel, genre = genre)
+                VideogameGenreScreen(onNavController,mainViewModel = mainViewmodel, genre = genre)
             }
         }
         composable(Destinations.InitScreen.route) {
@@ -109,5 +72,7 @@ fun MainNavigation(
         composable(Destinations.AddRatingScreen.route) {
             AddRatingScreen(onNavController, mainViewmodel, mainViewmodel.getGame())
         }
+
+
     }
 }

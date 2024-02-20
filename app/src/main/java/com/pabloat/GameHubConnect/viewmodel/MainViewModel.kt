@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -36,6 +37,8 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
 
     private val _selectedVideojuegoId = MutableStateFlow<Int?>(null)
     val selectedVideojuegoId: StateFlow<Int?> = _selectedVideojuegoId
+
+    private val busquedaJuego = MutableStateFlow("")
 
     init {
         viewModelScope.launch(handler) {
@@ -132,5 +135,16 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
 
     fun getGame(): Videojuego {
         return videojuego.value
+    }
+
+
+    val generosFiltrados = busquedaJuego.map { query ->
+        generos.value.filter { genre ->
+            genre.contains(query, ignoreCase = true)
+        }
+    }
+
+    fun onBusquedaGenero(query: String) {
+        busquedaJuego.value = query
     }
 }

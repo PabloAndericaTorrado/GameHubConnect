@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -54,6 +55,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import coil.transform.RoundedCornersTransformation
 import com.pabloat.GameHubConnect.data.local.Videojuego
@@ -132,141 +134,136 @@ fun VideojuegoCard(
 }
 
 @Composable
-fun VideojuegoDetailCard(onNavController: NavHostController,
-                         videojuego: Videojuego, mainViewModel: MainViewModel) {
+fun VideojuegoDetailCard(
+    onNavController: NavHostController,
+    videojuego: Videojuego,
+    mainViewModel: MainViewModel
+) {
     Surface(
         shape = RoundedCornerShape(16.dp),
         color = Color(0xFFDAE1E7),
         modifier = Modifier
             .height(580.dp)
             .padding(10.dp),
-        shadowElevation = 10.dp
     ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+        Column(
+            modifier = Modifier.padding(16.dp)
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .weight(2f),
-                verticalArrangement = Arrangement.Center
+            GenreTag(videojuego.genre)
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            Text(
+                text = videojuego.title,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            VideojuegoThumbnail(videojuego.thumbnail)
+
+            Spacer(modifier = Modifier.height(25.dp))
+
+            VideojuegoDetailRow(
+                label = "Desarrollador:",
+                value = videojuego.developer
+            )
+            VideojuegoDetailRow(
+                label = "Plataforma:",
+                value = videojuego.platform
+            )
+            VideojuegoDetailRow(
+                label = "Fecha de lanzamiento:",
+                value = videojuego.date
+            )
+            VideojuegoDetailRow(
+                label = "Valoración:",
+                value = videojuego.valoracion.toString()
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = videojuego.shortDescription,
+                fontSize = 14.sp,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            Spacer(modifier = Modifier.weight(0.8f))
+
+            OutlinedButton(
+                onClick = {
+                    onNavController.navigate(Destinations.AddRatingScreen.route)
+                    mainViewModel.saveGame(videojuego)
+                },
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Surface(
-                    shape = RoundedCornerShape(24.dp),
-                    modifier = Modifier.wrapContentSize(),
-                    color = Color(0xFFD1D5E1)
-                ) {
-                    Text(
-                        text = videojuego.genre,
-                        fontSize =  15.sp,
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.padding(vertical = 4.dp, horizontal = 10.dp)
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(4.dp))
-
                 Text(
-                    text = videojuego.title,
-                    fontSize =  24.sp,
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.SemiBold
+                    text = "Añadir valoración",
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 14.sp
                 )
-                Surface(
-                    shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier.size(width = 500.dp, height = 200.dp).padding(0.dp, 8.dp, 0.dp, 15.dp),
-                ) {
-                    Image(
-                        painter = rememberAsyncImagePainter(
-                            ImageRequest.Builder(LocalContext.current).data(data = videojuego.thumbnail)
-                                .apply(block = fun ImageRequest.Builder.() {
-                                    transformations(RoundedCornersTransformation(10f))
-                                }).build()
-                        ),
-                        contentDescription = null,
-                        modifier = Modifier.height(300.dp),
-                        contentScale = ContentScale.Crop
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(2.dp))
-
-                Text(text = "Desarrollador: ${videojuego.developer}")
-
-                Spacer(modifier = Modifier.height(2.dp))
-
-                Text(
-                    text = "Plataforma: ${videojuego.platform}",
-                    fontSize =  14.sp,
-                    style = MaterialTheme.typography.titleLarge
-                )
-
-                Text(
-                    text = "Fecha de lanzamiento: ${videojuego.date}",
-                    fontSize =  14.sp,
-                    style = MaterialTheme.typography.titleLarge
-                )
-
-                Text(
-                    text = "Valoracion: ${videojuego.valoracion}",
-                    fontSize =  14.sp,
-                    style = MaterialTheme.typography.titleLarge
-                )
-
-                Text(
-                    text = "Descripción: ${videojuego.shortDescription}",
-                    fontSize =  14.sp,
-                    style = MaterialTheme.typography.titleLarge
-                )
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                OutlinedButton(
-                    modifier = Modifier
-                        .height(45.dp).align(Alignment.CenterHorizontally),
-                    shape = RoundedCornerShape(8.dp),
-                    onClick = { onNavController.navigate(Destinations.AddRatingScreen.route); mainViewModel.saveGame(
-                        videojuego
-                    ) }
-                )
-                {
-                    Text(
-                        text = "Añadir valoración",
-                        fontSize =  11.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                }
             }
         }
     }
 }
 
 @Composable
-fun TextRow(label: String, value: String) {
+private fun GenreTag(genre: String) {
+    Surface(
+        shape = RoundedCornerShape(24.dp),
+        color = Color(0xFFD1D5E1),
+        modifier = Modifier.padding(bottom = 4.dp)
+    ) {
+        Text(
+            text = genre,
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(vertical = 4.dp, horizontal = 10.dp)
+        )
+    }
+}
+
+@Composable
+private fun VideojuegoThumbnail(thumbnail: String) {
+    Surface(
+        shape = RoundedCornerShape(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .aspectRatio(16f / 9),
+    ) {
+        Image(
+            painter = rememberAsyncImagePainter(
+                ImageRequest.Builder(LocalContext.current).data(data = thumbnail).apply(block = fun ImageRequest.Builder.() {
+                    transformations(RoundedCornersTransformation(10f))
+                }).build()
+            ),
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
+    }
+}
+
+@Composable
+private fun VideojuegoDetailRow(label: String, value: String) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(vertical = 4.dp)
+        modifier = Modifier.padding(bottom = 4.dp)
     ) {
         Text(
             text = label,
-            style = MaterialTheme1.typography.subtitle1,
-            color = MaterialTheme1.colors.primary,
+            fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.width(120.dp)
         )
         Text(
             text = value,
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme1.colors.onSurface,
-            modifier = Modifier.padding(start = 8.dp)
+            fontSize = 14.sp,
+            modifier = Modifier.weight(1f)
         )
     }
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VideojuegosDeleteItem(videojuego: Videojuego, onDeleteClick: () -> Unit) {
     Card(
