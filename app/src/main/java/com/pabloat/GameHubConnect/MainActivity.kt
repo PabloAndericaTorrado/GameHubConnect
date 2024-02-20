@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -25,7 +24,7 @@ import com.pabloat.GameHubConnect.data.local.AppDataBase
 import com.pabloat.GameHubConnect.data.local.VideojuegoDatasource
 import com.pabloat.GameHubConnect.data.remote.RemoteVideojuegoDataSource
 import com.pabloat.GameHubConnect.data.remote.RetrofitBuilder
-import com.pabloat.GameHubConnect.navigation.MainNaviation
+import com.pabloat.GameHubConnect.navigation.MainNavigation
 import com.pabloat.GameHubConnect.navigation.MainTopBar
 import com.pabloat.GameHubConnect.ui.util.NavigationBottomBar
 import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel
@@ -52,6 +51,7 @@ fun MainApp() {
     val navHostController = rememberNavController()
     val remoteDatasource = RemoteVideojuegoDataSource(RetrofitBuilder.apiService)
     val localDatasource = VideojuegoDatasource(LocalContext.current)
+    val context = LocalContext.current
     val repository = VideojuegoRepository(localDatasource, remoteDatasource)
     val mainViewModel = MainViewModel(repository)
     val firebaseViewModel = FireBaseViewModel()
@@ -71,9 +71,14 @@ fun MainApp() {
                     painter = background,
                     contentDescription = "background",
                     modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop // Ajusta la imagen para que llene todo el espacio disponible
+                    contentScale = ContentScale.Crop
                 )
-                MainNaviation(navHostController, mainViewModel,firebaseViewModel)
+                MainNavigation(
+                    onNavController = navHostController,
+                    mainViewmodel = mainViewModel,
+                    fireBaseViewModel = firebaseViewModel,
+                    context = context
+                )
             }
             NavigationBottomBar(navHostController)
         }

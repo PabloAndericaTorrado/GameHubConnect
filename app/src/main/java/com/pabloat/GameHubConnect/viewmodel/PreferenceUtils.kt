@@ -1,5 +1,6 @@
 package com.pabloat.GameHubConnect.viewmodel
 
+
 import android.content.Context
 
 class PreferenceUtils {
@@ -33,8 +34,7 @@ class PreferenceUtils {
 
     fun getSavedPassword(context: Context): String? {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        return sharedPreferences.getString(KEY_PASSWORD, null)
+        return sharedPreferences.getString(KEY_PASSWORD,null)
     }
-
 
 }

@@ -130,8 +130,5 @@ class FireBaseViewModel:ViewModel() {
     fun getCurrentUserName(): String? {
         val currentUser = auth.currentUser
         return currentUser?.displayName
-    }
-
-
-
+        }
 }

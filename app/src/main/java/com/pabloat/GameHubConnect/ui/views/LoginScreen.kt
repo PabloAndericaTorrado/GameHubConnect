@@ -202,7 +202,7 @@ fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewMod
                 ) { email, password ->
                     Log.d("MV", "Logueado con $email y $password")
                     fireBaseViewModel.storeEmail(email)
-                        Log.d("MV", "Entra en el try")
+                    Log.d("MV", "Entra en el try")
                     fireBaseViewModel.SingInWithEmailAndPassword(context,email, password,
                         home = {
                             if (fireBaseViewModel.getStoredEmail() == "admin@admin.com") {
@@ -277,6 +277,6 @@ private fun MostrarSnackbar(showSnackbar: MutableState<Boolean>) {
             }
         ) {
             Text("El Correo o la Contraseña no son correctos")
+            }
         }
-    }
 }
