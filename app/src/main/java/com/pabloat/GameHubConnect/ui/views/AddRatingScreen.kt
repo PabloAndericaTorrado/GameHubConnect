@@ -20,7 +20,7 @@ import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 
 
 @Composable
-fun AddRating(navHostController: NavHostController, mainViewModel: MainViewModel, id: Int) {
+fun AddRatingScreen(navHostController: NavHostController, mainViewModel: MainViewModel, id: Int) {
     val gameRate = remember { mutableFloatStateOf(0.0f) }
     CuadroFloat(value = gameRate, label = "Valoracion Personal del Juego")
     // Cuando el valor de gameRate cambie, actualiza la valoración del videojuego
