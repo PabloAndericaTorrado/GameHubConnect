@@ -105,11 +105,21 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
         }
     }
 
-    suspend fun getSelectedVideojuego(videojuegoId:Int): Videojuego? {
+    suspend fun getSelectedVideojuego(videojuegoId: Int): Videojuego? {
         if (videojuegoId != null) {
             return repository.getVideojuegoById(videojuegoId)
         }
         return null
+    }
+
+    fun updateVideojuegoRating(id: Int, newRating: Float) {
+        viewModelScope.launch {
+            val videojuego = repository.getVideojuegoById(id)
+            if (videojuego != null) {
+                videojuego.valoracion = newRating
+                repository.updateVideojuego(videojuego)
+            }
+        }
     }
 
 }

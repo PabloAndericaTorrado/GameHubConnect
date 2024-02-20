@@ -13,7 +13,7 @@ data class Videojuego(
     val genre: String,
     val platform: String,
     val date: String,
-    val valoracion: Float // nuevo atributo
+    var valoracion: Float // nuevo atributo
 ){
     override fun toString(): String {
         return super.toString()
