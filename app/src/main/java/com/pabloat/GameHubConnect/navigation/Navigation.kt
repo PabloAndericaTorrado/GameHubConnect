@@ -1,6 +1,7 @@
 package com.pabloat.GameHubConnect.navigation
 
 import AddRatingScreen
+import InitScreen
 import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
@@ -14,7 +15,6 @@ import com.pabloat.GameHubConnect.ui.views.DetailGameScreen
 import com.pabloat.GameHubConnect.ui.views.EditScreen
 import com.pabloat.GameHubConnect.ui.views.EditSearch
 import com.pabloat.GameHubConnect.ui.views.GenreScreen
-import com.pabloat.GameHubConnect.ui.views.InitScreen
 import com.pabloat.GameHubConnect.ui.views.LoginScreen
 import com.pabloat.GameHubConnect.ui.views.MainScreen
 import com.pabloat.GameHubConnect.ui.views.ManageScreen

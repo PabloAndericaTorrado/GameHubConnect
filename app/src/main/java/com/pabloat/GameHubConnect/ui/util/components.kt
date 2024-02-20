@@ -19,18 +19,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ListAlt
-import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.ListAlt
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
@@ -56,7 +53,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import coil.transform.RoundedCornersTransformation
 import com.pabloat.GameHubConnect.data.local.Videojuego
@@ -321,15 +317,15 @@ fun NavigationBottomBar(navHostController: NavHostController) {
     val items = listOf(
         NavigationItem(Icons.Filled.Home, "Inicio", "InitScreen"),
         NavigationItem(Icons.AutoMirrored.Filled.ListAlt, "Catálogo", "GenreScreen"),
-        NavigationItem(Icons.Filled.AccountCircle, "Perfil", "profile")
+        NavigationItem(Icons.Filled.Favorite, "Favoritos", "profile")
     )
 
     NavigationBar(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp),
-        containerColor = Color.DarkGray, // Fondo oscuro
-        contentColor = Color.White // Íconos y texto blancos
+        containerColor = Color(0xFA090F16),
+        contentColor = Color.White
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),

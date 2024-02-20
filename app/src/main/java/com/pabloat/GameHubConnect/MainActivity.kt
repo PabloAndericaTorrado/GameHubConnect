@@ -57,9 +57,9 @@ fun MainApp() {
     val firebaseViewModel = FireBaseViewModel()
     AppDataBase.getDatabase(LocalContext.current)
     mainViewModel.getRemoteVideojuego()
-    val background: Painter = painterResource(id = R.drawable.fondo)
+    val background: Painter = painterResource(id = R.drawable.inicio)
 
-    Scaffold(topBar = { MainTopBar() }) { it ->
+    Scaffold(topBar = { MainTopBar() }) {
         Column(
             modifier = Modifier
                 .padding(it)

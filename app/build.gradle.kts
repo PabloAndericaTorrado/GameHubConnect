@@ -104,4 +104,6 @@ dependencies {
     implementation("androidx.compose.animation:animation:1.6.1")
     implementation("androidx.compose.material3:material3:1.2.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.21")
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation("androidx.compose.ui:ui:1.6.1")
 }
