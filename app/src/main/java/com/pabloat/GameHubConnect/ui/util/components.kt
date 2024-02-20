@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -33,6 +34,7 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -129,66 +131,114 @@ fun VideojuegoCard(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun VideojuegoDetailCard(
-    onNavController: NavHostController,
-    videojuego: Videojuego,
-    mainViewModel: MainViewModel
-) {
-    var isCardElevated by remember { mutableStateOf(false) }
-    val cardElevation by animateDpAsState(
-        targetValue = if (isCardElevated) 16.dp else 8.dp,
-        animationSpec = tween(500),
-        label = ""
-    )
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        onClick = {
-            isCardElevated = !isCardElevated
-            mainViewModel.setSelectedVideojuegoId(videojuego.id)
-            Log.d("MV", "Pulsado")
-            onNavController.navigate(Destinations.DetailGameScreen.route)
-        },
+fun VideojuegoDetailCard(onNavController: NavHostController,
+                         videojuego: Videojuego, mainViewModel: MainViewModel) {
+    Surface(
         shape = RoundedCornerShape(16.dp),
-        elevation = cardElevation,
+        color = Color(0xFFDAE1E7),
+        modifier = Modifier
+            .height(580.dp)
+            .padding(10.dp),
+        shadowElevation = 10.dp
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
+        Row(
+            modifier = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = rememberAsyncImagePainter(
-                    ImageRequest.Builder(LocalContext.current)
-                        .data(data = videojuego.thumbnail)
-                        .apply {
-                            transformations(RoundedCornersTransformation(10f))
-                        }
-                        .build()
-                ),
-                contentDescription = null,
+            Column(
                 modifier = Modifier
-                    .height(200.dp)
-                    .fillMaxWidth(),
-                contentScale = ContentScale.Crop
-            )
+                    .fillMaxSize()
+                    .weight(2f),
+                verticalArrangement = Arrangement.Center
+            ) {
+                Surface(
+                    shape = RoundedCornerShape(24.dp),
+                    modifier = Modifier.wrapContentSize(),
+                    color = Color(0xFFD1D5E1)
+                ) {
+                    Text(
+                        text = videojuego.genre,
+                        fontSize =  15.sp,
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.padding(vertical = 4.dp, horizontal = 10.dp)
+                    )
+                }
 
-            Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(4.dp))
 
-            TextRow("Desarrollador:", videojuego.developer)
-            TextRow("Descripción:", videojuego.shortDescription)
-            TextRow("Género:", videojuego.genre)
-            TextRow("Plataforma:", videojuego.platform)
-            TextRow("Fecha de salida:", videojuego.date)
-        }
-        OutlinedButton(onClick = {
-            onNavController.navigate(Destinations.AddRatingScreen.route); mainViewModel.saveGame(
-            videojuego
-        )
-        }) {
-            Text(text = "Añadir valoración")
+                Text(
+                    text = videojuego.title,
+                    fontSize =  24.sp,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Surface(
+                    shape = RoundedCornerShape(16.dp),
+                    modifier = Modifier.size(width = 500.dp, height = 200.dp).padding(0.dp, 8.dp, 0.dp, 15.dp),
+                ) {
+                    Image(
+                        painter = rememberAsyncImagePainter(
+                            ImageRequest.Builder(LocalContext.current).data(data = videojuego.thumbnail)
+                                .apply(block = fun ImageRequest.Builder.() {
+                                    transformations(RoundedCornersTransformation(10f))
+                                }).build()
+                        ),
+                        contentDescription = null,
+                        modifier = Modifier.height(300.dp),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(2.dp))
+
+                Text(text = "Desarrollador: ${videojuego.developer}")
+
+                Spacer(modifier = Modifier.height(2.dp))
+
+                Text(
+                    text = "Plataforma: ${videojuego.platform}",
+                    fontSize =  14.sp,
+                    style = MaterialTheme.typography.titleLarge
+                )
+
+                Text(
+                    text = "Fecha de lanzamiento: ${videojuego.date}",
+                    fontSize =  14.sp,
+                    style = MaterialTheme.typography.titleLarge
+                )
+
+                Text(
+                    text = "Valoracion: ${videojuego.valoracion}",
+                    fontSize =  14.sp,
+                    style = MaterialTheme.typography.titleLarge
+                )
+
+                Text(
+                    text = "Descripción: ${videojuego.shortDescription}",
+                    fontSize =  14.sp,
+                    style = MaterialTheme.typography.titleLarge
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                OutlinedButton(
+                    modifier = Modifier
+                        .height(45.dp).align(Alignment.CenterHorizontally),
+                    shape = RoundedCornerShape(8.dp),
+                    onClick = { onNavController.navigate(Destinations.AddRatingScreen.route); mainViewModel.saveGame(
+                        videojuego
+                    ) }
+                )
+                {
+                    Text(
+                        text = "Añadir valoración",
+                        fontSize =  11.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                }
+            }
         }
     }
 }
