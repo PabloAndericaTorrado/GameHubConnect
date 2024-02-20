@@ -2,7 +2,6 @@ package com.pabloat.GameHubConnect.ui.views
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
@@ -41,7 +40,7 @@ fun GenreScreen(
 ) {
     val genres by mainViewModel.generosFiltrados.collectAsState(initial = emptyList())
     val busquedaGenero = remember { mutableStateOf("") }
-    val searchBarVisible = remember { mutableStateOf(true) }
+    val barraBusquedaVisible = remember { mutableStateOf(true) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -50,7 +49,7 @@ fun GenreScreen(
                 .padding(16.dp),
         ) {
             AnimatedVisibility(
-                visible = searchBarVisible.value,
+                visible = barraBusquedaVisible.value,
                 enter = expandVertically(),
                 exit = shrinkVertically()
             ) {

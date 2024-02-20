@@ -27,6 +27,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ListAlt
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.ListAlt
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -315,7 +316,7 @@ fun GenreItem(genre: String, onClick: () -> Unit) {
 /************************************BARRA DE NAVEGACIÓN*********************************************/
 /****************************************************************************************************/
 @Composable
-fun NavigationBottomBar(onNavHostController: NavHostController) {
+fun NavigationBottomBar(navHostController: NavHostController) {
     var selectedItem by remember { mutableIntStateOf(0) }
     val items = listOf(
         NavigationItem(Icons.Filled.Home, "Inicio", "InitScreen"),
@@ -326,7 +327,9 @@ fun NavigationBottomBar(onNavHostController: NavHostController) {
     NavigationBar(
         modifier = Modifier
             .fillMaxWidth()
-            .height(60.dp)
+            .height(60.dp),
+        containerColor = Color.DarkGray, // Fondo oscuro
+        contentColor = Color.White // Íconos y texto blancos
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -340,7 +343,7 @@ fun NavigationBottomBar(onNavHostController: NavHostController) {
                     selected = selectedItem == index,
                     onClick = {
                         selectedItem = index
-                        onNavHostController.navigate(item.route)
+                        navHostController.navigate(item.route)
                     },
                     modifier = Modifier.weight(1f)
                 )
@@ -358,11 +361,15 @@ fun NavigationBottomBarItem(
     modifier: Modifier = Modifier
 ) {
     val scale by animateFloatAsState(
-        targetValue = if (selected) 1.1f else 1f,
+        targetValue = if (selected) 1.2f else 1f,
         animationSpec = tween(durationMillis = 300), label = ""
     )
     val textColor by animateColorAsState(
-        targetValue = if (selected) Color.Black else Color.Gray,
+        targetValue = if (selected) Color.White else Color.LightGray,
+        animationSpec = tween(durationMillis = 300), label = ""
+    )
+    val iconColor by animateColorAsState(
+        targetValue = if (selected) Color.White else Color.LightGray,
         animationSpec = tween(durationMillis = 300), label = ""
     )
 
@@ -377,7 +384,7 @@ fun NavigationBottomBarItem(
         Icon(
             imageVector = icon,
             contentDescription = label,
-            tint = textColor,
+            tint = iconColor,
             modifier = Modifier.size(24.dp)
         )
         Spacer(modifier = Modifier.height(4.dp))

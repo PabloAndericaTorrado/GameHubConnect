@@ -40,6 +40,8 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
 
     private val busquedaJuego = MutableStateFlow("")
 
+    private val busquedaGenero = MutableStateFlow("")
+
     init {
         viewModelScope.launch(handler) {
             repository.getAllGenres().collect { genres ->
@@ -138,13 +140,23 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
     }
 
 
-    val generosFiltrados = busquedaJuego.map { query ->
+    val generosFiltrados = busquedaGenero.map { query ->
         generos.value.filter { genre ->
             genre.contains(query, ignoreCase = true)
         }
     }
 
     fun onBusquedaGenero(query: String) {
+        busquedaGenero.value = query
+    }
+
+    val juegosFiltrados = busquedaJuego.map { query ->
+        videojuegos.value.filter { videojuego ->
+            videojuego.title.contains(query, ignoreCase = true)
+        }
+    }
+
+    fun onBusquedaJuego(query: String) {
         busquedaJuego.value = query
     }
 }
