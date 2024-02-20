@@ -1,8 +1,8 @@
 package com.pabloat.GameHubConnect.data
 
 import android.util.Log
-import com.pabloat.GameHubConnect.data.local.VideojuegoDatasource
 import com.pabloat.GameHubConnect.data.local.Videojuego
+import com.pabloat.GameHubConnect.data.local.VideojuegoDatasource
 import com.pabloat.GameHubConnect.data.remote.RemoteVideojuegoDataSource
 import kotlinx.coroutines.flow.Flow
 
@@ -54,7 +54,7 @@ class VideojuegoRepository(
         return localds.getVideojuegosByGenre(genre)
     }
 
-    suspend fun getVideojuegoById(videojuegoId: Int): Videojuego? {
+    suspend fun getVideojuegoById(videojuegoId: Int?): Videojuego? {
         return localds.getVideojuegoById(videojuegoId)
     }
 

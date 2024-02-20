@@ -1,7 +1,6 @@
 package com.pabloat.GameHubConnect.ui.util
 
 import android.util.Log
-import android.widget.Button
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -58,8 +57,6 @@ import coil.transform.RoundedCornersTransformation
 import com.pabloat.GameHubConnect.data.local.Videojuego
 import com.pabloat.GameHubConnect.navigation.Destinations
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
-import java.util.Locale
-import kotlin.reflect.full.memberProperties
 import androidx.compose.material.MaterialTheme as MaterialTheme1
 
 /*@Composable
@@ -186,7 +183,11 @@ fun VideojuegoDetailCard(
             TextRow("Plataforma:", videojuego.platform)
             TextRow("Fecha de salida:", videojuego.date)
         }
-        OutlinedButton(onClick = { onNavController.navigate(Destinations.AddRatingScreen.route) }) {
+        OutlinedButton(onClick = {
+            onNavController.navigate(Destinations.AddRatingScreen.route); mainViewModel.saveGame(
+            videojuego
+        )
+        }) {
             Text(text = "Añadir valoración")
         }
     }

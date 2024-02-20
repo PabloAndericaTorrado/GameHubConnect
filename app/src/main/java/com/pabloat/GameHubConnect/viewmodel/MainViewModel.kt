@@ -112,7 +112,7 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
         return null
     }
 
-    fun updateVideojuegoRating(id: Int, newRating: Float) {
+    fun updateVideojuegoRating(id: Int?, newRating: Float) {
         viewModelScope.launch {
             val videojuego = repository.getVideojuegoById(id)
             if (videojuego != null) {
@@ -122,4 +122,15 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
         }
     }
 
+    private val _videojuego: MutableStateFlow<Videojuego> =
+        MutableStateFlow(Videojuego(0, "Default", "Default", "", "", "", "", "", 0.0f))
+    var videojuego = _videojuego.asStateFlow()
+
+    fun saveGame(videojuego: Videojuego) {
+        _videojuego.value = videojuego
+    }
+
+    fun getGame(): Videojuego {
+        return videojuego.value
+    }
 }

@@ -70,7 +70,7 @@ fun MainNaviation(onNavController: NavHostController,mainViewmodel: MainViewMode
         }
 
         composable(Destinations.AddRatingScreen.route) {
-            AddRatingScreen(onNavController, mainViewmodel, id)
+            AddRatingScreen(onNavController, mainViewmodel, mainViewmodel.getGame())
         }
 
 
