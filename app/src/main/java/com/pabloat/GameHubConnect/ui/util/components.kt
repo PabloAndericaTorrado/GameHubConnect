@@ -1,6 +1,7 @@
 package com.pabloat.GameHubConnect.ui.util
 
 import android.util.Log
+import android.widget.Button
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -17,15 +18,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ListAlt
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.Card
-import androidx.compose.material.MaterialTheme as MaterialTheme1
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -57,6 +58,9 @@ import coil.transform.RoundedCornersTransformation
 import com.pabloat.GameHubConnect.data.local.Videojuego
 import com.pabloat.GameHubConnect.navigation.Destinations
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
+import java.util.Locale
+import kotlin.reflect.full.memberProperties
+import androidx.compose.material.MaterialTheme as MaterialTheme1
 
 /*@Composable
 fun VideojuegoCard(videojuego: Videojuego) {
@@ -127,6 +131,89 @@ fun VideojuegoCard(
         }
     }
 }
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun VideojuegoDetailCard(
+    onNavController: NavHostController,
+    videojuego: Videojuego,
+    mainViewModel: MainViewModel
+) {
+    var isCardElevated by remember { mutableStateOf(false) }
+    val cardElevation by animateDpAsState(
+        targetValue = if (isCardElevated) 16.dp else 8.dp,
+        animationSpec = tween(500),
+        label = ""
+    )
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        onClick = {
+            isCardElevated = !isCardElevated
+            mainViewModel.setSelectedVideojuegoId(videojuego.id)
+            Log.d("MV", "Pulsado")
+            onNavController.navigate(Destinations.DetailGameScreen.route)
+        },
+        shape = RoundedCornerShape(16.dp),
+        elevation = cardElevation,
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Image(
+                painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current)
+                        .data(data = videojuego.thumbnail)
+                        .apply {
+                            transformations(RoundedCornersTransformation(10f))
+                        }
+                        .build()
+                ),
+                contentDescription = null,
+                modifier = Modifier
+                    .height(200.dp)
+                    .fillMaxWidth(),
+                contentScale = ContentScale.Crop
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            TextRow("Desarrollador:", videojuego.developer)
+            TextRow("Descripción:", videojuego.shortDescription)
+            TextRow("Género:", videojuego.genre)
+            TextRow("Plataforma:", videojuego.platform)
+            TextRow("Fecha de salida:", videojuego.date)
+        }
+        OutlinedButton(onClick = { onNavController.navigate(Destinations.AddRatingScreen.route) }) {
+            Text(text = "Añadir valoración")
+        }
+    }
+}
+
+@Composable
+fun TextRow(label: String, value: String) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(vertical = 4.dp)
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme1.typography.subtitle1,
+            color = MaterialTheme1.colors.primary,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.width(120.dp)
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme1.colors.onSurface,
+            modifier = Modifier.padding(start = 8.dp)
+        )
+    }
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
