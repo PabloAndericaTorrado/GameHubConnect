@@ -1,7 +1,13 @@
 package com.pabloat.GameHubConnect.ui.views
 
 import android.util.Log
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Snackbar
@@ -9,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -29,6 +36,7 @@ fun AddScreen(navHostController: NavHostController, mainViewModel: MainViewModel
     val gameDeveloper = remember { mutableStateOf("") }
     val gamePlatform = remember { mutableStateOf("") }
     val gameDate = remember { mutableStateOf("") }
+    val gameRate = remember { mutableFloatStateOf(0.0f) }
     val showSnackbar = remember { mutableStateOf(false) }
     val videojuego = Videojuego(
         id = null,
@@ -38,7 +46,8 @@ fun AddScreen(navHostController: NavHostController, mainViewModel: MainViewModel
         shortDescription = gameDescription.value,
         genre = gameGenre.value,
         platform = gamePlatform.value,
-        date = gameDate.value
+        date = gameDate.value,
+        valoracion = gameRate.value
     )
 
     Column(

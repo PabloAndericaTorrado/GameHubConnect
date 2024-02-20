@@ -37,7 +37,8 @@ data class VideoJuegoDTO(
             shortDescription = short_description,
             genre = genre,
             platform = platform,
-            date = date
+            date = date,
+            valoracion = 0.0f
         )
     }
 }
@@ -46,14 +47,15 @@ fun VideoJuegosDTO.toLocalList(): List<Videojuego> {
     val tempList = mutableListOf<Videojuego>()
     for (i in 0 .. 5 - 1){
         val nuevo = Videojuego(
-           id = data.get(i).id,
+            id = data.get(i).id,
             title = data.get(i).title,
             thumbnail = data.get(i).thumbnail,
             developer = data.get(i).developer,
             shortDescription = data.get(i).short_description,
             genre = data.get(i).genre,
             platform = data.get(i).platform,
-            date = data.get(i).date
+            date = data.get(i).date,
+            valoracion = 0.0f
 
         )
         tempList.add(nuevo)
