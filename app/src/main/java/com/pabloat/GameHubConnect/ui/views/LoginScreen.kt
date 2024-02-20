@@ -1,6 +1,5 @@
 package com.pabloat.GameHubConnect.ui.views
 
-import android.text.InputFilter
 import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,9 +16,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Surface
@@ -33,6 +32,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -42,6 +42,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.pabloat.GameHubConnect.navigation.Destinations
 import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel
+import com.pabloat.GameHubConnect.viewmodel.PreferenceUtils
 
 
 @Composable
@@ -184,7 +185,11 @@ fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewMod
     val showLoginForm = rememberSaveable {
         mutableStateOf(true)
     }
+    val context = LocalContext.current
     val (errorMessage, setErrorMessage) = remember { mutableStateOf("") }
+    val preferencesUtils = PreferenceUtils()
+    val rememberMeState = remember { mutableStateOf(false) }
+
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -198,7 +203,7 @@ fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewMod
                     Log.d("MV", "Logueado con $email y $password")
                     fireBaseViewModel.storeEmail(email)
                         Log.d("MV", "Entra en el try")
-                    fireBaseViewModel.SingInWithEmailAndPassword(email, password,
+                    fireBaseViewModel.SingInWithEmailAndPassword(context,email, password,
                         home = {
                             if (fireBaseViewModel.getStoredEmail() == "admin@admin.com") {
                                 Log.d("MV", "Es ADMIN")
@@ -218,6 +223,15 @@ fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewMod
                 if (showSnackbar.value) {
                     MostrarSnackbar(showSnackbar)
                 }
+                Checkbox(
+                    checked = rememberMeState.value,
+                    onCheckedChange = { isChecked ->
+                        rememberMeState.value = isChecked
+                        preferencesUtils.saveRememberMeState(isChecked, context)
+                    },
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+                Text(text = "Recuérdame")
 
             } else {
                 Text("crea una cuenta")

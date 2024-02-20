@@ -1,29 +1,21 @@
 package com.pabloat.GameHubConnect.viewmodel
 
+import android.content.Context
 import android.util.Log
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.pabloat.GameHubConnect.data.local.User
-import com.pabloat.GameHubConnect.navigation.Destinations
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class FireBaseViewModel:ViewModel() {
     private val auth:FirebaseAuth = Firebase.auth
@@ -40,11 +32,15 @@ class FireBaseViewModel:ViewModel() {
         return _storedError.value
     }
 
-    fun SingInWithEmailAndPassword(email: String, password: String, home: () -> Unit, fail: () -> Unit) = viewModelScope.launch {
+    fun SingInWithEmailAndPassword(context: Context, email: String, password: String, home: () -> Unit, fail: () -> Unit) = viewModelScope.launch {
+        val preferencesUtils = PreferenceUtils()
         try {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("MV", "Logueado")
+                    if (preferencesUtils.getRememberMeState(context)){
+                        preferencesUtils.saveUserCredentials(email,password,context)
+                    }
                     home()
                 } else {
                     Log.d("MV", "Inicio de sesión fallido")
@@ -88,7 +84,7 @@ class FireBaseViewModel:ViewModel() {
             userId = userId.toString(),
             displayName = displayName.toString(),
             avatarUrl = "",
-            quote = "chupamela",
+            quote = "",
             rol = "user",
             id = null
         ).toMap()
@@ -113,6 +109,27 @@ class FireBaseViewModel:ViewModel() {
     }
     fun getStoredEmail(): String {
         return _storedString.value
+    }
+    fun getCurrentUserRoleFromFirestore(userId: String, onSuccess: (String?) -> Unit, onFailure: (Exception) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(userId)
+
+        userRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val rol = document.getString("rol")
+                    onSuccess(rol)
+                } else {
+                    onFailure(Exception("El documento del usuario no existe"))
+                }
+            }
+            .addOnFailureListener { exception ->
+                onFailure(exception)
+            }
+    }
+    fun getCurrentUserName(): String? {
+        val currentUser = auth.currentUser
+        return currentUser?.displayName
     }
 
 
