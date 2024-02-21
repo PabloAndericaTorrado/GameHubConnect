@@ -203,6 +203,18 @@ fun VideojuegoDetailCard(
                     fontSize = 14.sp
                 )
             }
+            OutlinedButton(
+                onClick = {
+                    mainViewModel.saveGameArray(videojuego)
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "Guardar",
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 14.sp
+                )
+            }
         }
     }
 }
@@ -320,8 +332,8 @@ fun NavigationBottomBar(navHostController: NavHostController) {
     val items = listOf(
         NavigationItem(Icons.Filled.Home, "Inicio", "InitScreen"),
         NavigationItem(Icons.AutoMirrored.Filled.ListAlt, "Catálogo", "GenreScreen"),
-        NavigationItem(Icons.Filled.Favorite, "Favoritos", "profile"),
-        NavigationItem(Icons.Filled.AccountCircle, "Mi Cuenta", "CuentaScreen")
+        NavigationItem(Icons.Filled.Favorite, "Favoritos", "UserFavScreen"),
+        NavigationItem(Icons.Filled.AccountCircle, "Mi Cuenta", "ProfileScreen")
     )
 
     NavigationBar(

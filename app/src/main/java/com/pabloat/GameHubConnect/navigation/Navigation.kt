@@ -18,6 +18,8 @@ import com.pabloat.GameHubConnect.ui.views.GenreScreen
 import com.pabloat.GameHubConnect.ui.views.LoginScreen
 import com.pabloat.GameHubConnect.ui.views.MainScreen
 import com.pabloat.GameHubConnect.ui.views.ManageScreen
+import com.pabloat.GameHubConnect.ui.views.ProfileScreen
+import com.pabloat.GameHubConnect.ui.views.UserFavScreen
 import com.pabloat.GameHubConnect.ui.views.VideogameGenreScreen
 import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
@@ -108,6 +110,14 @@ fun MainNavigation(
 
         composable(Destinations.AddRatingScreen.route) {
             AddRatingScreen(onNavController, mainViewmodel, mainViewmodel.getGame())
+        }
+
+        composable(Destinations.ProfileScreen.route){
+            ProfileScreen(onNavController,mainViewmodel)
+        }
+
+        composable(Destinations.UserFavScreen.route){
+            UserFavScreen(onNavController,mainViewmodel)
         }
     }
 }

@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pabloat.GameHubConnect.data.VideojuegoRepository
-
 import com.pabloat.GameHubConnect.data.local.Videojuego
 import com.pabloat.GameHubConnect.ui.util.ScreenState
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -46,10 +45,18 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
     private val _videojuegosPorGenero = MutableStateFlow<List<Videojuego>>(emptyList())
     val videojuegosPorGenero: StateFlow<List<Videojuego>> get() = _videojuegosPorGenero.asStateFlow()
 
+    private val _savedGames = MutableStateFlow<List<Videojuego>>(emptyList())
+    val savedGames: StateFlow<List<Videojuego>> get() = _savedGames.asStateFlow()
+
+    // Función para guardar un juego en la lista
+    fun saveGameArray(videojuego: Videojuego) {
+        _savedGames.value += videojuego
+    }
+
     fun getVideojuegosByGenre(genre: String): Flow<List<Videojuego>> {
         return repository.getVideojuegosByGenre(genre).onEach { videojuegos ->
             _videojuegosPorGenero.value =
-                videojuegos // Actualizar la lista de videojuegos por género
+                videojuegos
         }
     }
 

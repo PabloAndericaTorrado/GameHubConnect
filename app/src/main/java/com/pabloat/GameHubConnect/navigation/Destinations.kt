@@ -28,4 +28,8 @@ sealed class Destinations(val route: String) {
     object DetailGameScreen : Destinations(route = "DetailGameScreen")
 
     object AddRatingScreen : Destinations(route = "AddRatingScreen")
+
+    object ProfileScreen : Destinations(route = "ProfileScreen")
+
+    object UserFavScreen : Destinations(route = "UserFavScreen")
 }
