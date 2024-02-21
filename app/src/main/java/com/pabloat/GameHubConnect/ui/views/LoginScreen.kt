@@ -237,11 +237,8 @@ fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewMod
                     )
                     Text(
                         text = "Recuérdame"
-
                     )
                 }
-
-
             } else {
                 Text("crea una cuenta")
                 UserForm(
