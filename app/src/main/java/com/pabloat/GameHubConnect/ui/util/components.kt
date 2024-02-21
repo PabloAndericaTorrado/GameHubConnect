@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ListAlt
 import androidx.compose.material.icons.filled.AccountCircle
@@ -35,6 +36,7 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -60,7 +62,8 @@ import coil.transform.RoundedCornersTransformation
 import com.pabloat.GameHubConnect.data.local.Videojuego
 import com.pabloat.GameHubConnect.navigation.Destinations
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
-import androidx.compose.material.MaterialTheme as MaterialTheme1
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 /*@Composable
 fun VideojuegoCard(videojuego: Videojuego) {
@@ -95,6 +98,7 @@ fun VideojuegoCard(
         tween(500),
         label = ""
     )
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -125,7 +129,6 @@ fun VideojuegoCard(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(8.dp),
-                style = MaterialTheme1.typography.h6,
                 color = MaterialTheme.colorScheme.onBackground
             )
         }
@@ -136,8 +139,22 @@ fun VideojuegoCard(
 fun VideojuegoDetailCard(
     onNavController: NavHostController,
     videojuego: Videojuego,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    snackbarHostState: SnackbarHostState,
+    coroutineScope: CoroutineScope
 ) {
+
+    val onFavoriteClicked = {
+        val success = mainViewModel.saveGameArray(videojuego)
+        coroutineScope.launch {
+            val message = if (success) "Se ha añadido el videojuego a tu lista de deseos" else "El videojuego ya se encuentra en tu lista de deseos"
+            snackbarHostState.showSnackbar(
+                message = message,
+                duration = SnackbarDuration.Short
+            )
+        }
+    }
+
     Surface(
         shape = RoundedCornerShape(16.dp),
         color = Color(0xFFDAE1E7),
@@ -205,6 +222,7 @@ fun VideojuegoDetailCard(
             }
             OutlinedButton(
                 onClick = {
+                    onFavoriteClicked()
                     mainViewModel.saveGameArray(videojuego)
                 },
                 modifier = Modifier.fillMaxWidth()
@@ -212,7 +230,7 @@ fun VideojuegoDetailCard(
                 Text(
                     text = "Guardar",
                     fontWeight = FontWeight.SemiBold,
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
                 )
             }
         }

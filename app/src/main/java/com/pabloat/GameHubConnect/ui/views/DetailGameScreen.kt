@@ -2,6 +2,10 @@ package com.pabloat.GameHubConnect.ui.views
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,6 +13,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -19,9 +24,13 @@ import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 @Composable
 fun DetailGameScreen(onNavController: NavHostController, mainViewModel: MainViewModel){
     val selectedVideojuegoId by mainViewModel.selectedVideojuegoId.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
     val videojuegoState = remember(selectedVideojuegoId) {
         mutableStateOf<Videojuego?>(null)
     }
+
+    CustomSnackbarHost(snackbarHostState = snackbarHostState)
     LaunchedEffect(selectedVideojuegoId) {
         val videojuego = mainViewModel.getSelectedVideojuego(selectedVideojuegoId ?: -1)
         videojuegoState.value = videojuego
@@ -34,7 +43,7 @@ fun DetailGameScreen(onNavController: NavHostController, mainViewModel: MainView
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            VideojuegoDetailCard(onNavController, videojuego = videojuego, mainViewModel)
+            VideojuegoDetailCard(onNavController, videojuego = videojuego, mainViewModel, snackbarHostState, coroutineScope)
         }
     } else {
         Box(
@@ -43,5 +52,17 @@ fun DetailGameScreen(onNavController: NavHostController, mainViewModel: MainView
         ) {
             Text(text = "Cargando...")
         }
+    }
+}
+
+@Composable
+fun CustomSnackbarHost(snackbarHostState: SnackbarHostState) {
+    SnackbarHost(hostState = snackbarHostState) { data ->
+        Snackbar(
+            snackbarData = data,
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            actionColor = MaterialTheme.colorScheme.primary
+        )
     }
 }

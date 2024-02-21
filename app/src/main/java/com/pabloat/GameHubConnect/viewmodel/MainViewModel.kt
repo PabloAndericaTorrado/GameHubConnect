@@ -48,9 +48,13 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
     private val _savedGames = MutableStateFlow<List<Videojuego>>(emptyList())
     val savedGames: StateFlow<List<Videojuego>> get() = _savedGames.asStateFlow()
 
-    // Función para guardar un juego en la lista
-    fun saveGameArray(videojuego: Videojuego) {
-        _savedGames.value += videojuego
+    fun saveGameArray(videojuego: Videojuego): Boolean {
+        val isAlreadySaved = _savedGames.value.any { it.id == videojuego.id }
+        if (!isAlreadySaved) {
+            _savedGames.value += videojuego
+            return true
+        }
+        return false
     }
 
     fun getVideojuegosByGenre(genre: String): Flow<List<Videojuego>> {
