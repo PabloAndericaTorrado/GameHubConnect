@@ -24,6 +24,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ListAlt
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Card
@@ -317,7 +318,8 @@ fun NavigationBottomBar(navHostController: NavHostController) {
     val items = listOf(
         NavigationItem(Icons.Filled.Home, "Inicio", "InitScreen"),
         NavigationItem(Icons.AutoMirrored.Filled.ListAlt, "Catálogo", "GenreScreen"),
-        NavigationItem(Icons.Filled.Favorite, "Favoritos", "profile")
+        NavigationItem(Icons.Filled.Favorite, "Favoritos", "profile"),
+        NavigationItem(Icons.Filled.AccountCircle, "Mi Cuenta", "CuentaScreen")
     )
 
     NavigationBar(
