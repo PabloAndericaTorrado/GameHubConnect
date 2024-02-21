@@ -223,15 +223,24 @@ fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewMod
                 if (showSnackbar.value) {
                     MostrarSnackbar(showSnackbar)
                 }
-                Checkbox(
-                    checked = rememberMeState.value,
-                    onCheckedChange = { isChecked ->
-                        rememberMeState.value = isChecked
-                        preferencesUtils.saveRememberMeState(isChecked, context)
-                    },
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(text = "Recuérdame")
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Checkbox(
+                        checked = rememberMeState.value,
+                        onCheckedChange = { isChecked ->
+                            rememberMeState.value = isChecked
+                            preferencesUtils.saveRememberMeState(isChecked, context)
+                        },
+                    )
+                    Text(
+                        text = "Recuérdame"
+
+                    )
+                }
+
 
             } else {
                 Text("crea una cuenta")
