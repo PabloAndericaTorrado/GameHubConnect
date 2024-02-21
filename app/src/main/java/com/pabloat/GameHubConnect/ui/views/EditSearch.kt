@@ -18,6 +18,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.pabloat.GameHubConnect.data.local.Videojuego
@@ -40,8 +42,9 @@ fun EditSearch(onNavController: NavHostController, mainViewModel: MainViewModel)
         OutlinedTextField(
             value = texto.value,
             onValueChange = { texto.value = it },
-            label = { Text("Título") },
-            modifier = Modifier.fillMaxWidth()
+            label = { Text("Título", color = Color.White) },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = TextStyle(color = Color.White)
         )
 
         Button(onClick = {
@@ -56,7 +59,7 @@ fun EditSearch(onNavController: NavHostController, mainViewModel: MainViewModel)
         }) {
             Text("Buscar juego")
         }
-VolverAtras(navHostController = onNavController, route = Destinations.ManageScreen.route, text = "Volver al menú")    }
+    }
 }
 
 @Composable

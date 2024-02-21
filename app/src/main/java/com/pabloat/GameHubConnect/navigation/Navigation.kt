@@ -83,7 +83,7 @@ fun MainNavigation(
             }
         }
         composable(Destinations.InitScreen.route) {
-            InitScreen(onNavController = onNavController)
+            InitScreen(onNavController = onNavController, fireBaseViewModel)
         }
         composable(Destinations.AddScreen.route) {
             AddScreen(navHostController = onNavController, mainViewModel = mainViewmodel)

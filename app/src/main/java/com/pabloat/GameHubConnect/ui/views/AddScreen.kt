@@ -20,10 +20,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.pabloat.GameHubConnect.data.local.Videojuego
-import com.pabloat.GameHubConnect.navigation.Destinations
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 
 
@@ -75,7 +76,6 @@ fun AddScreen(navHostController: NavHostController, mainViewModel: MainViewModel
             Text("Añadir juego")
         }
         MostrarSnackbar(showSnackbar = showSnackbar)
-        VolverAtras(navHostController = navHostController, route = Destinations.ManageScreen.route, text = "Volver al menú")
     }
 }
 
@@ -84,8 +84,9 @@ fun CuadroTexto(value: MutableState<String>, label: String) {
     OutlinedTextField(
         value = value.value,
         onValueChange = { value.value = it },
-        label = { Text(label) },
-        modifier = Modifier.fillMaxWidth()
+        label = { Text(label, color = Color.White) },
+        modifier = Modifier.fillMaxWidth(),
+        textStyle = TextStyle(color = Color.White)
     )
 
     Spacer(modifier = Modifier.height(16.dp))

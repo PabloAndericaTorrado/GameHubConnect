@@ -52,9 +52,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.pabloat.GameHubConnect.R
 import com.pabloat.GameHubConnect.navigation.Destinations
+import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel
 
 @Composable
-fun InitScreen(onNavController: NavHostController) {
+fun InitScreen(onNavController: NavHostController, firebaseviewModel: FireBaseViewModel) {
     val background: Painter = painterResource(id = R.drawable.inicio)
     var visible by remember { mutableStateOf(false) }
     LaunchedEffect(key1 = true) {
@@ -115,7 +116,9 @@ fun InitScreen(onNavController: NavHostController) {
             Spacer(Modifier.height(20.dp))
             CategoryCard(title = "¡Explorar!", icon = Icons.Default.Gamepad, onNavController = onNavController, Destinations.GenreScreen.route)
             Spacer(Modifier.height(12.dp))
-            CategoryCard(title = "Administrar videojuegos", icon = Icons.Default.Settings, onNavController = onNavController, Destinations.ManageScreen.route)
+            if (firebaseviewModel.getStoredEmail() == "admin@admin.com") {
+                CategoryCard(title = "Administrar videojuegos", icon = Icons.Default.Settings, onNavController = onNavController, Destinations.ManageScreen.route)
+            }
         }
     }
 }
