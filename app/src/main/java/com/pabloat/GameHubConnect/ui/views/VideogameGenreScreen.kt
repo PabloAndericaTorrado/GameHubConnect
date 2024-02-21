@@ -32,7 +32,8 @@ import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
 @Composable
 fun VideogameGenreScreen(onNavController: NavHostController, mainViewModel: MainViewModel, genre: String) {
-
+    val videojuegosList by mainViewModel.getVideojuegosByGenre(genre = genre)
+        .collectAsState(emptyList())
     val videojuegoBuscado by mainViewModel.juegosFiltrados.collectAsState(initial = emptyList())
     val barraBusquedaVisible = remember { mutableStateOf(true) }
     val busquedaVideojuego = remember { mutableStateOf("") }

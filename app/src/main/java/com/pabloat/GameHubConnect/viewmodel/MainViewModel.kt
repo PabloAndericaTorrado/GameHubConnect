@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -42,6 +43,16 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
 
     private val busquedaGenero = MutableStateFlow("")
 
+    private val _videojuegosPorGenero = MutableStateFlow<List<Videojuego>>(emptyList())
+    val videojuegosPorGenero: StateFlow<List<Videojuego>> get() = _videojuegosPorGenero.asStateFlow()
+
+    fun getVideojuegosByGenre(genre: String): Flow<List<Videojuego>> {
+        return repository.getVideojuegosByGenre(genre).onEach { videojuegos ->
+            _videojuegosPorGenero.value =
+                videojuegos // Actualizar la lista de videojuegos por género
+        }
+    }
+
     init {
         viewModelScope.launch(handler) {
             repository.getAllGenres().collect { genres ->
@@ -54,9 +65,6 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
         _selectedVideojuegoId.value = videojuegoId
     }
 
-    fun getVideojuegosByGenre(genre: String): Flow<List<Videojuego>> {
-        return repository.getVideojuegosByGenre(genre)
-    }
 
     private val _selectedVideojuego = MutableStateFlow<Videojuego?>(null)
     val selectedVideojuego: StateFlow<Videojuego?> = _selectedVideojuego
@@ -151,7 +159,7 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
     }
 
     val juegosFiltrados = busquedaJuego.map { query ->
-        videojuegos.value.filter { videojuego ->
+        videojuegosPorGenero.value.filter { videojuego ->
             videojuego.title.contains(query, ignoreCase = true)
         }
     }
