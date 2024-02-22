@@ -127,8 +127,14 @@ class FireBaseViewModel:ViewModel() {
                 onFailure(exception)
             }
     }
+
     fun getCurrentUserName(): String? {
         val currentUser = auth.currentUser
         return currentUser?.displayName
     }
+
+    fun signOut() {
+        auth.signOut()
+    }
+
 }

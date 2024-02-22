@@ -2,6 +2,7 @@ package com.pabloat.GameHubConnect.navigation
 
 import AddRatingScreen
 import InitScreen
+import ProfileScreen
 import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
@@ -18,7 +19,6 @@ import com.pabloat.GameHubConnect.ui.views.GenreScreen
 import com.pabloat.GameHubConnect.ui.views.LoginScreen
 import com.pabloat.GameHubConnect.ui.views.MainScreen
 import com.pabloat.GameHubConnect.ui.views.ManageScreen
-import com.pabloat.GameHubConnect.ui.views.ProfileScreen
 import com.pabloat.GameHubConnect.ui.views.UserFavScreen
 import com.pabloat.GameHubConnect.ui.views.VideogameGenreScreen
 import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel
@@ -113,7 +113,7 @@ fun MainNavigation(
         }
 
         composable(Destinations.ProfileScreen.route){
-            ProfileScreen(onNavController,mainViewmodel)
+            ProfileScreen(onNavController, mainViewmodel, fireBaseViewModel)
         }
 
         composable(Destinations.UserFavScreen.route){

@@ -57,6 +57,11 @@ class MainViewModel(private val repository: VideojuegoRepository) : ViewModel() 
         return false
     }
 
+    fun deleteAllSavedGames() {
+        _savedGames.value = emptyList()
+    }
+
+
     fun getVideojuegosByGenre(genre: String): Flow<List<Videojuego>> {
         return repository.getVideojuegosByGenre(genre).onEach { videojuegos ->
             _videojuegosPorGenero.value =
