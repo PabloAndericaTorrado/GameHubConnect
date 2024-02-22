@@ -1,9 +1,6 @@
 package com.pabloat.GameHubConnect.ui.views
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,10 +30,11 @@ import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 @Composable
 fun VideogameGenreScreen(onNavController: NavHostController, mainViewModel: MainViewModel, genre: String) {
     val videojuegosList by mainViewModel.getVideojuegosByGenre(genre = genre)
-        .collectAsState(emptyList())
-    val videojuegoBuscado by mainViewModel.juegosFiltrados.collectAsState(initial = emptyList())
-    val barraBusquedaVisible = remember { mutableStateOf(true) }
+        .collectAsState(initial = emptyList())
     val busquedaVideojuego = remember { mutableStateOf("") }
+
+    val videojuegosFiltrados =
+        videojuegosList.filter { it.title.contains(busquedaVideojuego.value, ignoreCase = true) }
 
     Box(
         contentAlignment = Alignment.Center,
@@ -44,40 +42,30 @@ fun VideogameGenreScreen(onNavController: NavHostController, mainViewModel: Main
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            AnimatedVisibility(
-                visible = barraBusquedaVisible.value,
-                enter = expandVertically(),
-                exit = shrinkVertically()
-            ) {
-                OutlinedTextField(
-                    value = busquedaVideojuego.value,
-                    onValueChange = {
-                        busquedaVideojuego.value = it
-                        mainViewModel.onBusquedaJuego(it)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp),
-                    label = { Text("Buscar videojuegos") },
-                    shape = RoundedCornerShape(16.dp),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.White,
-                        unfocusedBorderColor = Color.White
-                    )
+        Column(modifier = Modifier.fillMaxWidth()) {
+            OutlinedTextField(
+                value = busquedaVideojuego.value,
+                onValueChange = {
+                    busquedaVideojuego.value = it
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
+                label = { Text("Buscar videojuegos") },
+                shape = RoundedCornerShape(16.dp),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = Color.White,
+                    unfocusedBorderColor = Color.White
                 )
-            }
+            )
 
             LazyColumn {
-                items(videojuegoBuscado) { videojuego ->
+                items(videojuegosFiltrados) { videojuego ->
                     VideojuegoCard(onNavController, videojuego, mainViewModel)
                 }
             }
         }
     }
 }
+
 
