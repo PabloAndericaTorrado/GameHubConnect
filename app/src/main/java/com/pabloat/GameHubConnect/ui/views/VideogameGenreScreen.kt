@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.pabloat.GameHubConnect.ui.util.VideojuegoCard
@@ -53,6 +54,7 @@ fun VideogameGenreScreen(onNavController: NavHostController, mainViewModel: Main
                     .padding(bottom = 8.dp),
                 label = { Text("Buscar videojuegos") },
                 shape = RoundedCornerShape(16.dp),
+                textStyle = TextStyle(color = Color.White),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = Color.White,
                     unfocusedBorderColor = Color.White
