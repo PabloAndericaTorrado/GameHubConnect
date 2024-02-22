@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -32,13 +33,13 @@ fun UserFavScreen(onNavController: NavHostController, mainViewmodel: MainViewMod
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(4.dp)
         ) {
             Text(
                 text = "¡Tus videojuegos favoritos!",
                 style = MaterialTheme.typography.titleMedium,
                 color = Color.White,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(2.dp).align(alignment = Alignment.Center)
             )
         }
 
@@ -55,7 +56,7 @@ fun UserFavScreen(onNavController: NavHostController, mainViewmodel: MainViewMod
                 text = "Todavía no has guardado ningún videojuego.",
                 style = MaterialTheme.typography.titleSmall,
                 color = Color.White,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(16.dp).align(alignment = Alignment.CenterHorizontally)
             )
         }
     }

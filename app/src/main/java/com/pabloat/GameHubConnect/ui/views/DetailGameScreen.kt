@@ -1,6 +1,8 @@
 package com.pabloat.GameHubConnect.ui.views
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Snackbar
@@ -16,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
 import com.pabloat.GameHubConnect.data.local.Videojuego
 import com.pabloat.GameHubConnect.ui.util.VideojuegoDetailCard
@@ -30,7 +33,6 @@ fun DetailGameScreen(onNavController: NavHostController, mainViewModel: MainView
         mutableStateOf<Videojuego?>(null)
     }
 
-    CustomSnackbarHost(snackbarHostState = snackbarHostState)
     LaunchedEffect(selectedVideojuegoId) {
         val videojuego = mainViewModel.getSelectedVideojuego(selectedVideojuegoId ?: -1)
         videojuegoState.value = videojuego
@@ -38,26 +40,26 @@ fun DetailGameScreen(onNavController: NavHostController, mainViewModel: MainView
 
     val videojuego = videojuegoState.value
 
-    if (videojuego != null) {
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        CustomSnackbarHost(snackbarHostState = snackbarHostState)
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            VideojuegoDetailCard(onNavController, videojuego = videojuego, mainViewModel, snackbarHostState, coroutineScope)
-        }
-    } else {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Text(text = "Cargando...")
+            if (videojuego != null) {
+                VideojuegoDetailCard(onNavController, videojuego = videojuego, mainViewModel, snackbarHostState, coroutineScope)
+            } else {
+                Text(text = "Cargando...")
+            }
         }
     }
 }
 
 @Composable
-fun CustomSnackbarHost(snackbarHostState: SnackbarHostState) {
-    SnackbarHost(hostState = snackbarHostState) { data ->
+fun CustomSnackbarHost(snackbarHostState: SnackbarHostState, modifier: Modifier = Modifier) {
+    SnackbarHost(hostState = snackbarHostState, modifier = modifier) { data ->
         Snackbar(
             snackbarData = data,
             containerColor = MaterialTheme.colorScheme.secondaryContainer,

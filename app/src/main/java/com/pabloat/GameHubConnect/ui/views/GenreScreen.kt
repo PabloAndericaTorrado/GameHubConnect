@@ -63,7 +63,7 @@ fun GenreScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp),
-                    label = { Text("Buscar videojuegos") },
+                    label = { Text("Buscar videojuegos", color = Color.White) },
                     shape = RoundedCornerShape(16.dp),
                     textStyle = TextStyle(color = Color.White),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
