@@ -13,21 +13,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.pabloat.GameHubConnect.data.VideojuegoRepository
 import com.pabloat.GameHubConnect.data.local.AppDataBase
 import com.pabloat.GameHubConnect.data.local.VideojuegoDatasource
 import com.pabloat.GameHubConnect.data.remote.RemoteVideojuegoDataSource
 import com.pabloat.GameHubConnect.data.remote.RetrofitBuilder
-import com.pabloat.GameHubConnect.navigation.Destinations
 import com.pabloat.GameHubConnect.navigation.MainNavigation
 import com.pabloat.GameHubConnect.navigation.MainTopBar
 import com.pabloat.GameHubConnect.ui.util.NavigationBottomBar
@@ -62,8 +58,6 @@ fun MainApp() {
     AppDataBase.getDatabase(LocalContext.current)
     mainViewModel.getRemoteVideojuego()
     val background: Painter = painterResource(id = R.drawable.inicio)
-    val showBottomBar = shouldShowBottomBar(navHostController)
-
 
     Scaffold(topBar = { MainTopBar() }) {
         Column(
@@ -86,16 +80,7 @@ fun MainApp() {
                     context = context
                 )
             }
-            if (showBottomBar) {
-                NavigationBottomBar(navHostController)
-            }
+            NavigationBottomBar(navHostController)
         }
     }
-}
-
-@Composable
-fun shouldShowBottomBar(navController: NavController): Boolean {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
-    return currentRoute != Destinations.LoginScreen.route
 }
