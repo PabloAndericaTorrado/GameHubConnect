@@ -14,10 +14,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -27,6 +30,7 @@ import com.pabloat.GameHubConnect.R
 import com.pabloat.GameHubConnect.navigation.Destinations
 import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
+import com.pabloat.GameHubConnect.viewmodel.PreferenceUtils
 
 @Composable
 fun ProfileScreen(
@@ -36,6 +40,12 @@ fun ProfileScreen(
 ) {
     val emailUser: String = fireBaseViewModel.getStoredEmail()
     val userName: String = emailUser.split("@").first()
+    val preferencesUtils = PreferenceUtils()
+    val context = LocalContext.current
+    val rememberMeState = remember { mutableStateOf(false) }
+
+
+
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -57,7 +67,7 @@ fun ProfileScreen(
                 contentDescription = "Avatar del usuario",
                 modifier = Modifier
                     .size(120.dp)
-                    .clip(CircleShape) // Redondea la imagen a forma de círculo
+                    .clip(CircleShape)
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -84,6 +94,9 @@ fun ProfileScreen(
             ElevatedButton(
                 onClick = {
                     mainViewModel.deleteAllSavedGames()
+                    rememberMeState.value = false
+                    preferencesUtils.saveRememberMeState(false, context)
+                    preferencesUtils.saveUserCredentials("", "", context)
                     fireBaseViewModel.signOut()
                     onNavController.navigate(Destinations.LoginScreen.route)
                 },

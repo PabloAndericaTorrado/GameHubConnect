@@ -10,6 +10,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.pabloat.GameHubConnect.ui.util.isConnectedToInternet
 import com.pabloat.GameHubConnect.ui.views.AddScreen
 import com.pabloat.GameHubConnect.ui.views.DeleteGameScreen
 import com.pabloat.GameHubConnect.ui.views.DetailGameScreen
@@ -37,32 +38,45 @@ fun MainNavigation(
 
     val rememberMeState = preferencesUtils.getRememberMeState(context)
 
-    LaunchedEffect(rememberMeState) {
-        if (rememberMeState) {
-            val savedEmail = preferencesUtils.getSavedEmail(context)
-            val savedPassword = preferencesUtils.getSavedPassword(context)
-            if (savedEmail != null && savedPassword != null) {
-                fireBaseViewModel.SingInWithEmailAndPassword(context, savedEmail, savedPassword,
-                    home = {
-                        if (fireBaseViewModel.getStoredEmail() == "admin@admin.com") {
-                            onNavController.navigate(Destinations.ManageScreen.route)
-                        } else {
-                            onNavController.navigate(Destinations.InitScreen.route)
+
+    if (isConnectedToInternet(context)) {
+        LaunchedEffect(rememberMeState) {
+            if (rememberMeState) {
+                val savedEmail = preferencesUtils.getSavedEmail(context)
+                val savedPassword = preferencesUtils.getSavedPassword(context)
+                if (savedEmail != null && savedPassword != null) {
+                    fireBaseViewModel.SingInWithEmailAndPassword(context, savedEmail, savedPassword,
+                        home = {
+                            if (fireBaseViewModel.getStoredEmail() == "admin@admin.com") {
+                                onNavController.navigate(Destinations.ManageScreen.route)
+                            } else {
+                                onNavController.navigate(Destinations.InitScreen.route)
+                            }
+                        },
+                        fail = {
+                            onNavController.navigate(Destinations.LoginScreen.route)
                         }
-                    },
-                    fail = {
-                        onNavController.navigate(Destinations.LoginScreen.route)
-                    }
-                )
+                    )
+                } else {
+                    onNavController.navigate(Destinations.LoginScreen.route)
+                }
             } else {
                 onNavController.navigate(Destinations.LoginScreen.route)
             }
-        } else {
-            onNavController.navigate(Destinations.LoginScreen.route)
         }
+
     }
 
-    NavHost(navController = onNavController, startDestination = Destinations.LoginScreen.route) {
+    val isConnected = isConnectedToInternet(context)
+    val destinoInicial = if (isConnected) {
+        Destinations.LoginScreen.route
+    } else {
+        Destinations.InitScreen.route
+    }
+
+
+
+    NavHost(navController = onNavController, startDestination = destinoInicial) {
         composable(Destinations.MainScreen.route) {
             MainScreen(mainViewmodel, navHostController = onNavController)
         }
