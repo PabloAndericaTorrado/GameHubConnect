@@ -27,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.pabloat.GameHubConnect.ui.util.GenreItem
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 
@@ -36,8 +35,7 @@ import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 @Composable
 fun GenreScreen(
     mainViewModel: MainViewModel,
-    onGenreSelected: (String) -> Unit,
-    navHostController: NavHostController
+    onGenreSelected: (String) -> Unit
 ) {
     val genres by mainViewModel.generosFiltrados.collectAsState(initial = emptyList())
     val busquedaGenero = remember { mutableStateOf("") }

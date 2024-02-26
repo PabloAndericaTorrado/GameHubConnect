@@ -24,7 +24,6 @@ import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 @ExperimentalFoundationApi
 @Composable
 fun MainScreen(mainViewModel: MainViewModel, navHostController: NavHostController) {
-    val screenState by mainViewModel.videojuegos.collectAsState()
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -33,6 +32,11 @@ fun MainScreen(mainViewModel: MainViewModel, navHostController: NavHostControlle
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
+            /**
+             * Aquí se almacena el estado de los videojuego del viewModel y se actualiza cada vez que cambia.
+             * Se utiliza para mostrar la lista de videojuegos.
+             */
             val videojuegosList by mainViewModel.videojuegos.collectAsState()
             LazyColumn(modifier = Modifier.weight(9f)) {
                 items(videojuegosList) { videojuego ->

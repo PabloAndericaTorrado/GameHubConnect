@@ -81,16 +81,14 @@ fun MainNavigation(
             MainScreen(mainViewmodel, navHostController = onNavController)
         }
         composable(Destinations.ManageScreen.route) {
-            ManageScreen(navHostController = onNavController, mainViewModel = mainViewmodel)
+            ManageScreen(navHostController = onNavController)
         }
         composable(Destinations.GenreScreen.route) {
             GenreScreen(
-                mainViewModel = mainViewmodel,
-                onGenreSelected = { genre ->
-                    onNavController.navigate(Destinations.VideoGamesGenre.createRoute(genre))
-                },
-                onNavController
-            )
+                mainViewModel = mainViewmodel
+            ) { genre ->
+                onNavController.navigate(Destinations.VideoGamesGenre.createRoute(genre))
+            }
         }
         composable(Destinations.VideoGamesGenre.route) { backStackEntry ->
             val genre = backStackEntry.arguments?.getString("genre")
@@ -106,7 +104,7 @@ fun MainNavigation(
         }
 
         composable(Destinations.DeleteGameScreen.route) {
-            DeleteGameScreen(onNavController = onNavController, mainViewModel = mainViewmodel)
+            DeleteGameScreen(mainViewModel = mainViewmodel)
         }
 
         composable(Destinations.EditSearch.route) {

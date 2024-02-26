@@ -2,7 +2,6 @@ package com.pabloat.GameHubConnect.ui.views
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Snackbar
@@ -18,11 +17,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
 import com.pabloat.GameHubConnect.data.local.Videojuego
 import com.pabloat.GameHubConnect.ui.util.VideojuegoDetailCard
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
+
+/**
+ * DetailGameScreen es la screen que muestra los detalles de un videojuego. Le llega el id del videojuego
+ * seleccionado y muestra sus atributos en una tarjeta.
+ */
 
 @Composable
 fun DetailGameScreen(onNavController: NavHostController, mainViewModel: MainViewModel){
@@ -48,6 +51,7 @@ fun DetailGameScreen(onNavController: NavHostController, mainViewModel: MainView
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
+            // Control de la tarjeta de detalles del videojuego
             if (videojuego != null) {
                 VideojuegoDetailCard(onNavController, videojuego = videojuego, mainViewModel, snackbarHostState, coroutineScope)
             } else {
