@@ -5,6 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+/**
+ * AppDataBase es una clase que se encarga de gestionar la base de datos local.
+ */
 @Database(entities = [Videojuego::class], version = 2)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun videojuegoDao(): LocalVideojuegoDao

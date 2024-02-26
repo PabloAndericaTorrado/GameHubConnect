@@ -40,6 +40,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.LocalTextStyle
@@ -83,6 +84,9 @@ import com.pabloat.GameHubConnect.navigation.Destinations
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+
+/****************************************************************************************************/
+
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -283,6 +287,7 @@ private fun VideojuegoDetailRow(label: String, value: String) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VideojuegosDeleteItem(videojuego: Videojuego, onDeleteClick: () -> Unit) {
     Card(
@@ -539,10 +544,18 @@ fun MostrarSnackbar(showSnackbar: MutableState<Boolean>) {
 fun NavigationBottomBar(navHostController: NavHostController) {
     var selectedItem by remember { mutableIntStateOf(0) }
     val items = listOf(
-        NavigationItem(Icons.Filled.Home, "Inicio", "InitScreen"),
+        NavigationItem(
+            Icons.Filled.Home,
+            "Inicio",
+            "com.pabloat.GameHubConnect.ui.views.InitScreen"
+        ),
         NavigationItem(Icons.AutoMirrored.Filled.ListAlt, "Catálogo", "GenreScreen"),
         NavigationItem(Icons.Filled.Favorite, "Favoritos", "UserFavScreen"),
-        NavigationItem(Icons.Filled.AccountCircle, "Mi Cuenta", "ProfileScreen")
+        NavigationItem(
+            Icons.Filled.AccountCircle,
+            "Mi Cuenta",
+            "com.pabloat.GameHubConnect.ui.views.ProfileScreen"
+        )
     )
 
     NavigationBar(

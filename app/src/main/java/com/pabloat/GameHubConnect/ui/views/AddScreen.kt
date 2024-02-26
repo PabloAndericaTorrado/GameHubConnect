@@ -28,6 +28,12 @@ import com.pabloat.GameHubConnect.data.local.Videojuego
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 
 
+/**
+ * AddScreen es una función componible que representa la pantalla donde el usuario puede agregar un nuevo juego a la base de datos.
+ * @param navHostController es el controlador de navegación que gestiona la navegación dentro de la aplicación.
+ * @param mainViewModel es el ViewModel que contiene la lógica de la aplicación.
+ */
+
 @Composable
 fun AddScreen(navHostController: NavHostController, mainViewModel: MainViewModel) {
     val gameName = remember { mutableStateOf("") }

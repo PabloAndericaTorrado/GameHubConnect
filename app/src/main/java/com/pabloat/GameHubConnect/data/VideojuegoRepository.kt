@@ -6,6 +6,11 @@ import com.pabloat.GameHubConnect.data.local.VideojuegoDatasource
 import com.pabloat.GameHubConnect.data.remote.RemoteVideojuegoDataSource
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * VideojuegoRepository es una clase que se encarga de gestionar la obtención de datos de la base de datos local y remota.
+ * @param localds es el origen de datos local.
+ * @param remoteds es el origen de datos remoto.
+ */
 class VideojuegoRepository(
     private val localds: VideojuegoDatasource,
     private val remoteds: RemoteVideojuegoDataSource

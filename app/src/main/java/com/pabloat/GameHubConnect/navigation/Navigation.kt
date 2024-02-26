@@ -1,8 +1,5 @@
 package com.pabloat.GameHubConnect.navigation
 
-import AddRatingScreen
-import InitScreen
-import ProfileScreen
 import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
@@ -11,15 +8,18 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.pabloat.GameHubConnect.ui.util.isConnectedToInternet
+import com.pabloat.GameHubConnect.ui.views.AddRatingScreen
 import com.pabloat.GameHubConnect.ui.views.AddScreen
 import com.pabloat.GameHubConnect.ui.views.DeleteGameScreen
 import com.pabloat.GameHubConnect.ui.views.DetailGameScreen
 import com.pabloat.GameHubConnect.ui.views.EditScreen
 import com.pabloat.GameHubConnect.ui.views.EditSearch
 import com.pabloat.GameHubConnect.ui.views.GenreScreen
+import com.pabloat.GameHubConnect.ui.views.InitScreen
 import com.pabloat.GameHubConnect.ui.views.LoginScreen
 import com.pabloat.GameHubConnect.ui.views.MainScreen
 import com.pabloat.GameHubConnect.ui.views.ManageScreen
+import com.pabloat.GameHubConnect.ui.views.ProfileScreen
 import com.pabloat.GameHubConnect.ui.views.UserFavScreen
 import com.pabloat.GameHubConnect.ui.views.VideogameGenreScreen
 import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel

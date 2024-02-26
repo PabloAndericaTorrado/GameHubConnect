@@ -15,7 +15,7 @@ sealed class Destinations(val route: String) {
     object AddScreen : Destinations(route = "AddScreen")
 
 
-    object  InitScreen : Destinations(route = "InitScreen")
+    object InitScreen : Destinations(route = "com.pabloat.GameHubConnect.ui.views.InitScreen")
 
     object DeleteGameScreen : Destinations(route = "DeleteGameScreen")
 
@@ -29,7 +29,7 @@ sealed class Destinations(val route: String) {
 
     object AddRatingScreen : Destinations(route = "AddRatingScreen")
 
-    object ProfileScreen : Destinations(route = "ProfileScreen")
+    object ProfileScreen : Destinations(route = "com.pabloat.GameHubConnect.ui.views.ProfileScreen")
 
     object UserFavScreen : Destinations(route = "UserFavScreen")
 }

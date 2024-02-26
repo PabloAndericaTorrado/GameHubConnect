@@ -8,6 +8,9 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * LocalVideojuegoDao es una interfaz que se encarga de definir las operaciones que se pueden realizar en la base de datos local.
+ */
 @Dao
 interface LocalVideojuegoDao {
     @Query("SELECT * FROM Videojuego")

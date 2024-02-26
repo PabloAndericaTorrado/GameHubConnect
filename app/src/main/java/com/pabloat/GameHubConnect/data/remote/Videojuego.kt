@@ -3,7 +3,10 @@ package com.pabloat.GameHubConnect.data.remote
 import com.google.gson.annotations.SerializedName
 import com.pabloat.GameHubConnect.data.local.Videojuego
 
-
+/**
+ * VideoJuegosDTO es una clase que representa el objeto JSON que se recibe de la API.
+ * @param data es la lista de videojuegos que se recibe de la API.
+ */
 
 data class VideoJuegosDTO(
     @SerializedName("games")

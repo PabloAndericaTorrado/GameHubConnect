@@ -1,3 +1,5 @@
+package com.pabloat.GameHubConnect.ui.views
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
@@ -36,6 +38,12 @@ import com.pabloat.GameHubConnect.data.local.Videojuego
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 import kotlin.math.roundToInt
 
+/**
+ * AddRatingScreen es una función componible que representa la pantalla donde el usuario puede agregar una valoración a un juego.
+ * @param navHostController es el controlador de navegación que gestiona la navegación dentro de la aplicación.
+ * @param mainViewModel es el ViewModel que contiene la lógica de la aplicación.
+ * @param videojuego es el juego al que se le quiere agregar una valoración.
+ */
 @Composable
 fun AddRatingScreen(
     navHostController: NavHostController,

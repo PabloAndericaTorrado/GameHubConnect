@@ -5,6 +5,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * RetrofitBuilder es un objeto que se encarga de crear una instancia de Retrofit para poder realizar peticiones a la API.
+ * @property API_BASE_URL es la url base de la API.
+ */
 // Esta es la única línea que necesitamos cambiar generalmente, con la url de la API
 private const val API_BASE_URL = "https://www.freetogame.com/api/"
 
