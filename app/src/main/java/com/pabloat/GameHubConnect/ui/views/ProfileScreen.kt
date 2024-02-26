@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.pabloat.GameHubConnect.R
 import com.pabloat.GameHubConnect.navigation.Destinations
+import com.pabloat.GameHubConnect.ui.util.isConnectedToInternet
 import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 import com.pabloat.GameHubConnect.viewmodel.PreferenceUtils
@@ -73,23 +74,41 @@ fun ProfileScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
+            if (isConnectedToInternet(context)) {
+                Text(
+                    text = "Bienvenido, $userName",
+                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
 
-            Text(
-                text = "Bienvenido, $userName",
-                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                color = Color.White
-            )
+
+                Text(
+                    text = "Estás logueado como $emailUser",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+
+                Spacer(modifier = Modifier.height(32.dp))
+            } else {
+                Text(
+                    text = "Bienvenido, En este momento estas offline",
+                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
 
 
-            Text(
-                text = "Estás logueado como $emailUser",
-                style = MaterialTheme.typography.bodyLarge,
-                color = Color.LightGray,
-                fontSize = 14.sp,
-                modifier = Modifier.padding(top = 4.dp)
-            )
+                Text(
+                    text = "Accediendo como usuario anonimo",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
 
-            Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(32.dp))
+            }
 
 
             ElevatedButton(
