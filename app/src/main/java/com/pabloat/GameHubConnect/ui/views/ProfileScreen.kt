@@ -35,21 +35,24 @@ import com.pabloat.GameHubConnect.ui.util.isConnectedToInternet
 import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel
 import com.pabloat.GameHubConnect.viewmodel.MainViewModel
 import com.pabloat.GameHubConnect.viewmodel.PreferenceUtils
-
+/**
+ * Pantalla de perfil de usuario.
+ * @param onNavController Controlador de navegación para la navegación entre pantallas.
+ * @param mainViewModel ViewModel principal para gestionar la lógica relacionada con los videojuegos.
+ * @param fireBaseViewModel ViewModel para interactuar con Firebase Authentication.
+ */
 @Composable
 fun ProfileScreen(
     onNavController: NavHostController,
     mainViewModel: MainViewModel,
     fireBaseViewModel: FireBaseViewModel
 ) {
+    // Obtener el correo electrónico del usuario y el nombre de usuario
     val emailUser: String = fireBaseViewModel.getStoredEmail()
     val userName: String = emailUser.split("@").first()
     val preferencesUtils = PreferenceUtils()
     val context = LocalContext.current
     val rememberMeState = remember { mutableStateOf(false) }
-
-
-
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -64,7 +67,7 @@ fun ProfileScreen(
         ) {
             Spacer(modifier = Modifier.height(16.dp))
 
-
+            // Mostrar avatar del usuario
             val image: Painter = painterResource(id = R.drawable.user)
             Image(
                 painter = image,
@@ -76,13 +79,13 @@ fun ProfileScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
+            // Mostrar información del usuario dependiendo de si está conectado a Internet
             if (isConnectedToInternet(context)) {
                 Text(
                     text = "Bienvenido, $userName",
                     style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurface
                 )
-
 
                 Text(
                     text = "Estás logueado como $emailUser",
@@ -95,14 +98,13 @@ fun ProfileScreen(
                 Spacer(modifier = Modifier.height(32.dp))
             } else {
                 Text(
-                    text = "Bienvenido, En este momento estas offline",
+                    text = "Bienvenido, En este momento estás offline",
                     style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurface
                 )
 
-
                 Text(
-                    text = "Accediendo como usuario anonimo",
+                    text = "Accediendo como usuario anónimo",
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp,
@@ -112,9 +114,10 @@ fun ProfileScreen(
                 Spacer(modifier = Modifier.height(32.dp))
             }
 
-
+            // Botón para cerrar sesión
             ElevatedButton(
                 onClick = {
+                    // Eliminar todos los juegos guardados y cerrar sesión
                     mainViewModel.deleteAllSavedGames()
                     rememberMeState.value = false
                     preferencesUtils.saveRememberMeState(false, context)

@@ -45,54 +45,57 @@ import com.pabloat.GameHubConnect.viewmodel.FireBaseViewModel
 import com.pabloat.GameHubConnect.viewmodel.PreferenceUtils
 
 
+/**
+ * Composable para mostrar el formulario de inicio de sesión o registro de usuario.
+ *
+ * @param isCreatedAccount Indica si se está creando una nueva cuenta de usuario.
+ * @param onDone La acción a realizar cuando se completa el formulario.
+ */
 @Composable
 fun UserForm(
     isCreatedAccount: Boolean = false,
     onDone: (String, String) -> Unit = { email, pwd -> }
 ) {
-    val email = rememberSaveable {
-        mutableStateOf("")
-    }
-    val password = rememberSaveable {
-        mutableStateOf("")
-    }
-    val passwordVisible = rememberSaveable {
-        mutableStateOf(false)
-    }
-    val valido = remember(email.value,password.value) {
+    val email = rememberSaveable { mutableStateOf("") }
+    val password = rememberSaveable { mutableStateOf("") }
+    val passwordVisible = rememberSaveable { mutableStateOf(false) }
+    val valido = remember(email.value, password.value) {
         email.value.trim().isNotEmpty() && password.value.trim().isNotEmpty()
     }
     val keyboardController = LocalSoftwareKeyboardController.current
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        EmailInput(
-            emailState = email
-        )
-        PasswordInput(
-            passwordState = password,
-            labelId = "Password",
-            passwordVisible = passwordVisible
-        )
-        SubmitButton(
-            textId = if (isCreatedAccount) "Crear cuenta " else "Login",
-            inputValido = valido
-        ){
-            onDone(email.value.trim(),password.value.trim())
+        EmailInput(emailState = email)
+        PasswordInput(passwordState = password, labelId = "Password", passwordVisible = passwordVisible)
+        // enviar el formulario y ocultar el teclado
+        SubmitButton(textId = if (isCreatedAccount) "Crear cuenta " else "Login", inputValido = valido) {
+            onDone(email.value.trim(), password.value.trim())
             keyboardController?.hide()
         }
     }
 }
 
+/**
+ * Composable para mostrar el botón de envío del formulario.
+ *
+ * @param textId El texto que se mostrará en el botón.
+ * @param inputValido Indica si la entrada del formulario es válida o no.
+ * @param onClic La acción a realizar cuando se hace clic en el botón.
+ */
 @Composable
-fun SubmitButton(textId: String,
-                 inputValido:Boolean,
-                 onClic:()->Unit) {
+fun SubmitButton(
+    textId: String,
+    inputValido: Boolean,
+    onClic: () -> Unit
+) {
     Button(
         onClick = onClic,
         modifier = Modifier
             .padding(3.dp)
-            .fillMaxWidth(), shape = CircleShape,
+            .fillMaxWidth(),
+        shape = CircleShape,
         enabled = inputValido
     ) {
         Text(
@@ -102,6 +105,13 @@ fun SubmitButton(textId: String,
     }
 }
 
+/**
+ * Composable para mostrar el campo de entrada de contraseña.
+ *
+ * @param passwordState El estado de la contraseña.
+ * @param labelId El ID del campo de texto.
+ * @param passwordVisible Indica si la contraseña es visible o no.
+ */
 @Composable
 fun PasswordInput(
     passwordState: MutableState<String>,
@@ -111,6 +121,7 @@ fun PasswordInput(
     val visualTransformation = if (passwordVisible.value)
         VisualTransformation.None
     else PasswordVisualTransformation()
+
     OutlinedTextField(
         value = passwordState.value,
         onValueChange = { passwordState.value = it },
@@ -119,25 +130,29 @@ fun PasswordInput(
         modifier = Modifier
             .padding(bottom = 10.dp, start = 10.dp, end = 10.dp)
             .fillMaxWidth(),
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Password
-        ),
+        // Se le indica que el teclado a utilizar es el de contraseña.
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         visualTransformation = visualTransformation,
         trailingIcon = {
             if (passwordState.value.isNotBlank()) {
-                passwordVisibleIcon(passwordVisible)
-            } else null
+                PasswordVisibleIcon(passwordVisible)
+            }
         }
     )
 }
 
+/**
+ * Composable para mostrar el icono de visualización de contraseña.
+ *
+ * @param passwordVisible El estado de visibilidad de la contraseña.
+ */
 @Composable
-fun passwordVisibleIcon(passwordVisible: MutableState<Boolean>) {
-    val image =
-        if (passwordVisible.value)
-            Icons.Default.VisibilityOff
-        else
-            Icons.Default.Visibility
+fun PasswordVisibleIcon(passwordVisible: MutableState<Boolean>) {
+    val image = if (passwordVisible.value)
+        Icons.Default.VisibilityOff
+    else
+        Icons.Default.Visibility
+
     IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
         Icon(
             imageVector = image,
@@ -146,6 +161,14 @@ fun passwordVisibleIcon(passwordVisible: MutableState<Boolean>) {
     }
 }
 
+/**
+ * Composable para mostrar un campo de entrada de texto genérico.
+ *
+ * @param valueState El estado del valor del campo de texto.
+ * @param labelId El ID del campo de texto.
+ * @param isSingleLine Indica si el campo de texto es de una sola línea.
+ * @param keyboardType El tipo de teclado a utilizar.
+ */
 @Composable
 fun InputField(
     valueState: MutableState<String>,
@@ -161,12 +184,16 @@ fun InputField(
         modifier = Modifier
             .padding(bottom = 10.dp, start = 10.dp, end = 10.dp)
             .fillMaxWidth(),
-        keyboardOptions = KeyboardOptions(
-            keyboardType = keyboardType
-        )
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType)
     )
 }
 
+/**
+ * Composable para mostrar el campo de entrada de correo electrónico.
+ *
+ * @param emailState El estado del correo electrónico.
+ * @param labelId El ID del campo de texto.
+ */
 @Composable
 fun EmailInput(
     emailState: MutableState<String>,
@@ -179,14 +206,17 @@ fun EmailInput(
     )
 }
 
+/**
+ * Composable para mostrar la pantalla de inicio de sesión.
+ *
+ * @param navController Controlador de navegación para la navegación entre pantallas.
+ * @param fireBaseViewModel ViewModel para interactuar con Firebase Authentication.
+ */
 @Composable
 fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewModel = viewModel()) {
     val showSnackbar = remember { mutableStateOf(false) }
-    val showLoginForm = rememberSaveable {
-        mutableStateOf(true)
-    }
+    val showLoginForm = rememberSaveable { mutableStateOf(true) }
     val context = LocalContext.current
-    val (errorMessage, setErrorMessage) = remember { mutableStateOf("") }
     val preferencesUtils = PreferenceUtils()
     val rememberMeState = remember { mutableStateOf(false) }
 
@@ -196,14 +226,13 @@ fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewMod
             verticalArrangement = Arrangement.Center
         ) {
             if (showLoginForm.value) {
-                Text(text = "Inicia sesion")
-                UserForm(
-                    isCreatedAccount = false
-                ) { email, password ->
+                Text(text = "Inicia sesión")
+                UserForm(isCreatedAccount = false) { email, password ->
                     Log.d("MV", "Logueado con $email y $password")
                     fireBaseViewModel.storeEmail(email)
                     Log.d("MV", "Entra en el try")
-                    fireBaseViewModel.SingInWithEmailAndPassword(context,email, password,
+                    fireBaseViewModel.SingInWithEmailAndPassword(
+                        context, email, password,
                         home = {
                             if (fireBaseViewModel.getStoredEmail() == "admin@admin.com") {
                                 Log.d("MV", "Es ADMIN")
@@ -221,7 +250,7 @@ fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewMod
                     Log.d("MV", "Aqui Chat")
                 }
                 if (showSnackbar.value) {
-                    MostrarSnackbar(showSnackbar)
+                    ShowSnackbar(showSnackbar)
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -235,16 +264,12 @@ fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewMod
                             preferencesUtils.saveRememberMeState(isChecked, context)
                         },
                     )
-                    Text(
-                        text = "Recuérdame"
-                    )
+                    Text(text = "Recuérdame")
                 }
             } else {
-                Text("crea una cuenta")
-                UserForm(
-                    isCreatedAccount = true
-                ) { email, password ->
-                    Log.d("MV", "creando cuenta con $email,$password")
+                Text("Crea una cuenta")
+                UserForm(isCreatedAccount = true) { email, password ->
+                    Log.d("MV", "Creando cuenta con $email,$password")
                     fireBaseViewModel.createUserWithEmailAndPassword(email, password) {
                         navController.navigate(Destinations.InitScreen.route)
                     }
@@ -259,21 +284,28 @@ fun LoginScreen(navController: NavController, fireBaseViewModel: FireBaseViewMod
                     if (showLoginForm.value) "¿No tienes cuenta?"
                     else "¿Ya tienes cuenta?"
                 val text2 =
-                    if(showLoginForm.value) "Registrate"
-                    else "inicia Sesion"
+                    if (showLoginForm.value) "Regístrate"
+                    else "Inicia sesión"
                 Text(text = text1)
-                Text(text = text2,
+                Text(
+                    text = text2,
                     modifier = Modifier
                         .clickable { showLoginForm.value = !showLoginForm.value }
                         .padding(start = 5.dp),
-                    color = Color.Cyan)
+                    color = Color.Cyan
+                )
             }
         }
     }
 }
 
+/**
+ * Composable para mostrar una Snackbar.
+ *
+ * @param showSnackbar El estado que indica si se debe mostrar la Snackbar.
+ */
 @Composable
-private fun MostrarSnackbar(showSnackbar: MutableState<Boolean>) {
+private fun ShowSnackbar(showSnackbar: MutableState<Boolean>) {
     if (showSnackbar.value) {
         Snackbar(
             action = {
@@ -282,7 +314,7 @@ private fun MostrarSnackbar(showSnackbar: MutableState<Boolean>) {
                 }
             }
         ) {
-            Text("El Correo o la Contraseña no son correctos")
-            }
+            Text("El correo o la contraseña no son correctos")
         }
+    }
 }
