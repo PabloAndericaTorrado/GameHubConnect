@@ -84,13 +84,13 @@ fun ProfileScreen(
                 Text(
                     text = "Bienvenido, $userName",
                     style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = Color.White
                 )
 
                 Text(
                     text = "Estás logueado como $emailUser",
                     style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = Color.White,
                     fontSize = 14.sp,
                     modifier = Modifier.padding(top = 4.dp)
                 )
@@ -100,13 +100,13 @@ fun ProfileScreen(
                 Text(
                     text = "Bienvenido, En este momento estás offline",
                     style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = Color.White
                 )
 
                 Text(
                     text = "Accediendo como usuario anónimo",
                     style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = Color.White,
                     fontSize = 14.sp,
                     modifier = Modifier.padding(top = 4.dp)
                 )
